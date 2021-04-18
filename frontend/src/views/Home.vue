@@ -1,7 +1,8 @@
 <template>
 
-
 <div class="home">
+
+
 <div class="columns">
   <div class="column is-6 is-offset-3">
   <form v-on:submit.prevent="addTask">
@@ -34,11 +35,9 @@
             <button class="button is-success" @click="setStatus(task.id)">Done</button>
           </div>
           <div class="column">
-            <button class="button is-danger" @click="showModal">Delete</button>
-                <modal
-                  v-show="isModalVisible"
-                  @close="closeModal"
-                />
+            <button class="button is-danger" @click="confirmDelete">Delete</button>
+
+            <modal-window ref="modal" @confirm="deleteTask(task.id)"></modal-window>
           </div>
         </div>
       </div>
@@ -46,6 +45,8 @@
   </div>
   </div>
 </div>
+
+
 </div>
 
 
@@ -55,19 +56,18 @@
 
 <script>
 import axios from 'axios'
-import modal from "../components/modal.vue";
+import ModalWindow from '../components/modal-window.vue'
 
 export default {
   name: "Home",
-  components: {
-    modal
-   },
   data() {
     return {
       tasks: [],
       body: '',
-      isModalVisible: false,
     }
+  },
+  components: {
+    ModalWindow
   },
   mounted () {
     this.getTasks()
@@ -132,11 +132,8 @@ export default {
       })
       this.getTasks()
     },
-    showModal() {
-      this.isModalVisible = true
-    },
-    closeModal() {
-      this.isModalVisible = false
+    confirmDelete() {
+      this.$refs.modal.show = true
     },
   }
 }
