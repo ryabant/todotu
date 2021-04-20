@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column">
         <div class="cards">
-          <div class="card" v-if="!task.completed" v-bind:key="task.id">
+          <div class="card" v-bind:key="task.id">
             <div class="card-content">
               <div class="columns">
                 <div class="column">

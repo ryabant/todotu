@@ -1,24 +1,33 @@
 <template>
-  <div>
-    <div>
-      <p>{{ board.name }}</p>
+  <div class="board">
+    <div class="columns">
+      <div class="column">
+        <Boards />
+      </div>
+      <div class="column">
+        <NewTask />
+        <Tasks
+          v-for="task in completedTasks"
+          v-bind:key="task.id"
+          v-bind:task="task"
+        />
+      </div>
     </div>
-    <Tasks
-      v-for="task in board.tasks"
-      v-bind:key="task.id"
-      v-bind:task="task"
-    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Tasks from "../components/Tasks.vue";
+import Boards from "../components/Boards.vue";
+import NewTask from "../components/NewTask.vue";
 
 export default {
   name: "Board",
   components: {
     Tasks,
+    Boards,
+    NewTask,
   },
   data() {
     return {
@@ -30,7 +39,16 @@ export default {
   mounted() {
     this.getBoard();
   },
-
+  updated() {
+    this.getBoard();
+  },
+  computed: {
+    completedTasks() {
+      return this.board.tasks.filter((task) => {
+        return !task.completed;
+      });
+    },
+  },
   methods: {
     async getBoard() {
       const id = this.$route.params.id;
