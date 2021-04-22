@@ -1,5 +1,6 @@
 <template>
   <div class="board">
+    <Nav />
     <div class="columns">
       <div class="column">
         <Boards />
@@ -18,6 +19,7 @@
 
 <script>
 import axios from "axios";
+import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Boards from "../components/Boards.vue";
 import NewTask from "../components/NewTask.vue";
@@ -25,6 +27,7 @@ import NewTask from "../components/NewTask.vue";
 export default {
   name: "Board",
   components: {
+    Nav,
     Tasks,
     Boards,
     NewTask,

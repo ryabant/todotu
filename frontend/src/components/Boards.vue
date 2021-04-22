@@ -1,16 +1,14 @@
 <template>
-  <div class="column">
-    <div class="cards">
-      <div class="card" v-for="board in boards" v-bind:key="board.id">
-        <div class="card-content">
-          <div class="columns">
-            <div class="column is-four-fifths">
-              {{ board.name }}
-            </div>
-            <button class="button" @click="goToBoard(board.id)">
-              <i class="fas fa-check"></i>
-            </button>
+  <div class="cards">
+    <div class="card" v-for="board in boards" v-bind:key="board.id">
+      <div class="card-content">
+        <div class="columns">
+          <div class="column is-four-fifths">
+            {{ board.name }}
           </div>
+          <button class="button" @click="goToBoard(board.id)">
+            <i class="fas fa-check"></i>
+          </button>
         </div>
       </div>
     </div>
