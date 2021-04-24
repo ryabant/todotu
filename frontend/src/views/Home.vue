@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="columns">
-      <Boards />
+      <Menu />
 
       <div class="column">
         <div class="cards">
@@ -62,8 +62,8 @@
 
 <script>
 import axios from "axios";
-import Boards from "../components/Boards.vue";
 import ModalWindow from "../components/modal-window.vue";
+import Menu from "../components/Menu.vue";
 
 export default {
   name: "Home",
@@ -74,8 +74,8 @@ export default {
     };
   },
   components: {
-    Boards,
     ModalWindow,
+    Menu,
   },
   mounted() {
     this.getTasks();

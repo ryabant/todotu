@@ -2,16 +2,20 @@
   <div class="board">
     <Nav />
     <div class="columns">
-      <div class="column">
-        <Boards />
+      <div class="column is-one-quarter">
+        <Menu />
       </div>
       <div class="column">
-        <NewTask />
-        <Tasks
-          v-for="task in completedTasks"
-          v-bind:key="task.id"
-          v-bind:task="task"
-        />
+        <div class="new-task">
+          <NewTask />
+        </div>
+        <div class="tasks">
+          <Tasks
+            v-for="task in completedTasks"
+            v-bind:key="task.id"
+            v-bind:task="task"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -21,7 +25,7 @@
 import axios from "axios";
 import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
-import Boards from "../components/Boards.vue";
+import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
 
 export default {
@@ -29,7 +33,7 @@ export default {
   components: {
     Nav,
     Tasks,
-    Boards,
+    Menu,
     NewTask,
   },
   data() {

@@ -1,25 +1,27 @@
 <template>
-  <div class="cards">
-    <div class="card" v-for="board in boards" v-bind:key="board.id">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column is-four-fifths">
-            {{ board.name }}
-          </div>
-          <button class="button" @click="goToBoard(board.id)">
-            <i class="fas fa-check"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <aside class="menu has-background-light">
+    <ul class="menu-list">
+      <li><a>Inbox</a></li>
+      <li><a>Today</a></li>
+    </ul>
+    <ul class="menu-list">
+      <li>
+        <a class="is-active">Boards</a>
+        <ul v-for="board in boards" v-bind:key="board.id">
+          <li>
+            <a @click="goToBoard(board.id)">{{ board.name }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
-  name: "Boards",
+  name: "Menu",
   data() {
     return {
       boards: [],

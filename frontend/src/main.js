@@ -6,6 +6,7 @@ import axios from "axios";
 
 document.title = "Todotu";
 axios.defaults.baseURL = "http://127.0.0.1:8000";
+require("./assets/main.scss")
 
 createApp(App)
     .use(store)
