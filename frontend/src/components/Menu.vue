@@ -1,18 +1,19 @@
 <template>
   <aside class="menu has-background-light">
     <ul class="menu-list">
-      <li><a>Inbox</a></li>
-      <li><a>Today</a></li>
-    </ul>
-    <ul class="menu-list">
+      <li><router-link to="/" exact>Inbox</router-link></li>
+      <li><router-link to="/about" exact>About</router-link></li>
+
       <li>
-        <a class="is-active">Boards</a>
+        <a>Boards</a>
         <ul v-for="board in boards" v-bind:key="board.id">
-          <li>
-            <a @click="goToBoard(board.id)">{{ board.name }}</a>
-          </li>
+          <router-link tag="li" :to="'/boards/' + board.id">
+            {{ board.name }}
+          </router-link>
         </ul>
       </li>
+
+      <li><a>Completed</a></li>
     </ul>
   </aside>
 </template>
@@ -42,12 +43,9 @@ export default {
         .then((response) => {
           this.boards = response.data;
         })
-        .then((error) => {
+        .catch((error) => {
           console.log(error);
         });
-    },
-    goToBoard(board_id) {
-      this.$router.push(`/boards/${board_id}/`);
     },
   },
 };
