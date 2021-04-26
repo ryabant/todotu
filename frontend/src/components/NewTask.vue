@@ -1,26 +1,22 @@
 <template>
-  <div class="cards">
-    <div class="card">
-      <div class="card-content">
-        <form v-on:submit.prevent="addTask">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                placeholder="Text input"
-                v-model="body"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <p class="control">
-              <button class="button is-success">Add Task</button>
-            </p>
-          </div>
-        </form>
+  <div class="new-card">
+    <form class="box" v-on:submit.prevent="addTask">
+      <div class="field">
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            placeholder="Text input"
+            v-model="body"
+          />
+        </div>
       </div>
-    </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success">Add Task</button>
+        </p>
+      </div>
+    </form>
   </div>
 </template>
 

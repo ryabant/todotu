@@ -1,21 +1,16 @@
 <template>
-  <aside class="menu has-background-light">
-    <ul class="menu-list">
-      <li><router-link to="/" exact>Inbox</router-link></li>
-      <li><router-link to="/about" exact>About</router-link></li>
-
-      <li>
-        <a>Boards</a>
-        <ul v-for="board in boards" v-bind:key="board.id">
-          <router-link tag="li" :to="'/boards/' + board.id">
+  <div class="box">
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item" v-for="board in boards" v-bind:key="board.id">
+          <router-link :to="'/boards/' + board.id">
             {{ board.name }}
           </router-link>
-        </ul>
-      </li>
-
-      <li><a>Completed</a></li>
-    </ul>
-  </aside>
+        </div>
+      </div>
+      <a>Completed &#127942;</a>
+    </nav>
+  </div>
 </template>
 
 <script>

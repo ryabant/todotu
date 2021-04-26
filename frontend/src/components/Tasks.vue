@@ -1,29 +1,25 @@
 <template>
-  <div class="cards">
-    <div class="card" v-bind:key="task.id">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column">
-            <button class="button" @click="setStatus(task.id)">
-              <i class="fas fa-check"></i>
-            </button>
-          </div>
-          <div class="column is-four-fifths">
-            {{ task.body }}
-          </div>
-
-          <div class="column">
-            <button class="button is-danger" @click="confirmDelete">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-
-            <modal-window
-              ref="modal"
-              @confirm="deleteTask(task.id)"
-            ></modal-window>
-          </div>
+  <div class="tasks">
+    <div class="box" v-bind:key="task.id">
+      <article class="media">
+        <div class="media-left">
+          <label class="checkbox">
+            <input type="checkbox" @click="setStatus(task.id)" />
+          </label>
         </div>
-      </div>
+        <div class="media-content">
+          {{ task.body }}
+        </div>
+
+        <div class="media-right">
+          <button class="delete is-medium" @click="confirmDelete"></button>
+
+          <modal-window
+            ref="modal"
+            @confirm="deleteTask(task.id)"
+          ></modal-window>
+        </div>
+      </article>
     </div>
   </div>
 </template>

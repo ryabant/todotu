@@ -1,15 +1,11 @@
 <template>
   <div class="board">
-    <Nav />
     <div class="columns">
-      <div class="column is-one-quarter">
-        <Menu />
-      </div>
       <div class="column">
-        <div class="new-task">
+        <div class="container">
+          <Nav />
+          <Menu />
           <NewTask />
-        </div>
-        <div class="tasks">
           <Tasks
             v-for="task in completedTasks"
             v-bind:key="task.id"
@@ -18,6 +14,7 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -27,6 +24,7 @@ import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Board",
@@ -35,6 +33,7 @@ export default {
     Tasks,
     Menu,
     NewTask,
+    Footer,
   },
   data() {
     return {
