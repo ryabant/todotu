@@ -2,7 +2,7 @@
   <div class="board">
     <div class="columns">
       <div class="column">
-        <div class="container">
+        <div class="container is-max-desktop">
           <Nav />
           <Menu />
           <NewTask />
