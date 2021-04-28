@@ -24,10 +24,12 @@
 import axios from "axios";
 export default {
   name: "NewTask",
+  props: ["boardId"],
   data() {
     return {
       tasks: [],
       body: "",
+      board: "",
     };
   },
   methods: {
@@ -38,16 +40,18 @@ export default {
           url: "api/tasks/",
           data: {
             body: this.body,
-            board: 1,
+            board: this.boardId,
           },
         })
           .then((response) => {
             let newTask = {
               id: response.data.id,
               body: this.body,
+              board: this.boardId,
             };
             this.tasks.unshift(newTask);
             this.body = "";
+            this.board = "";
           })
           .catch((error) => {
             console.log(error);

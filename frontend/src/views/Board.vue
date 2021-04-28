@@ -5,7 +5,7 @@
         <div class="container is-max-desktop">
           <Nav />
           <Menu />
-          <NewTask />
+          <NewTask :boardId="board.id" />
           <Tasks
             v-for="task in completedTasks"
             v-bind:key="task.id"
