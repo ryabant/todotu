@@ -4,8 +4,15 @@
       <div class="level-left">
         <div class="level-item" v-for="board in boards" v-bind:key="board.id">
           <router-link :to="'/boards/' + board.id">
-            {{ board.name }}
+            <div class="tags">
+              <span class="tag is-medium"
+                >{{ board.name }}<button class="delete is-small"></button
+              ></span>
+            </div>
           </router-link>
+        </div>
+        <div class="level-item">
+          <a href="#"><span class="tag is-link is-medium">+</span></a>
         </div>
       </div>
       <a>Completed &#127942;</a>

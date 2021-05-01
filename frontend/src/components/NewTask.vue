@@ -13,7 +13,7 @@
       </div>
       <div class="field">
         <p class="control">
-          <button class="button is-success">Add Task</button>
+          <button class="button is-link">Add Task</button>
         </p>
       </div>
     </form>
