@@ -1,6 +1,6 @@
 <template>
   <div class="tasks">
-    <div class="box" v-bind:key="task.id">
+    <div class="box">
       <article class="media">
         <div class="media-left">
           <label class="checkbox">
@@ -14,10 +14,10 @@
         <div class="media-right">
           <button class="delete is-medium" @click="confirmDelete"></button>
 
-          <modal-window
+          <modal-delete
             ref="modal"
             @confirm="deleteTask(task.id)"
-          ></modal-window>
+          ></modal-delete>
         </div>
       </article>
     </div>
@@ -26,24 +26,19 @@
 
 <script>
 import axios from "axios";
-import ModalWindow from "../components/modal-window.vue";
+import ModalDelete from "../components/modal-delete.vue";
 
 export default {
   name: "Tasks",
-  data() {
-    return {};
-  },
   props: {
     task: Object,
   },
   components: {
-    ModalWindow,
+    ModalDelete,
   },
-  mounted() {},
-  computed: {},
   methods: {
-    async setStatus(task_id) {
-      await axios({
+    setStatus(task_id) {
+      axios({
         method: "patch",
         url: "api/tasks/" + task_id + "/",
         data: {
@@ -51,8 +46,8 @@ export default {
         },
       });
     },
-    async deleteTask(task_id) {
-      await axios({
+    deleteTask(task_id) {
+      axios({
         method: "delete",
         url: "api/tasks/" + task_id + "/",
       });

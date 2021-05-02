@@ -17,7 +17,7 @@
  
 <script>
 export default {
-  name: "ModalWindow",
+  name: "ModalDelete",
   data: function () {
     return {
       show: false,

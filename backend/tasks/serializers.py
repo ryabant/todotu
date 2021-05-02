@@ -11,7 +11,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class BoardSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(many=True)
+    tasks = TaskSerializer(many=True, required=False)
 
     class Meta:
         model = Board

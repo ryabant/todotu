@@ -33,9 +33,9 @@ export default {
     };
   },
   methods: {
-    async addTask() {
+    addTask() {
       if (this.body) {
-        await axios({
+        axios({
           method: "post",
           url: "api/tasks/",
           data: {

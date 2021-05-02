@@ -8,8 +8,8 @@
           <NewTask :boardId="board.id" />
           <Tasks
             v-for="task in completedTasks"
-            v-bind:key="task.id"
             v-bind:task="task"
+            v-bind:key="task.id"
           />
         </div>
       </div>
@@ -45,9 +45,6 @@ export default {
   mounted() {
     this.getBoard();
   },
-  updated() {
-    this.getBoard();
-  },
   computed: {
     completedTasks() {
       return this.board.tasks.filter((task) => {
@@ -55,15 +52,24 @@ export default {
       });
     },
   },
+  watch: {
+    $route() {
+      this.getBoard();
+    },
+  },
+
   methods: {
-    async getBoard() {
+    getBoard() {
       const id = this.$route.params.id;
-      await axios({
+      axios({
         method: "get",
         url: `api/boards/${id}`,
       })
         .then((response) => {
           this.board = response.data;
+        })
+        .then(() => {
+          this.board;
         })
         .catch((error) => console.log(error));
     },
