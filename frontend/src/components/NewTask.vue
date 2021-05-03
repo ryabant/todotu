@@ -1,6 +1,6 @@
 <template>
   <div class="new-card">
-    <form class="box" v-on:submit.prevent="addTask">
+    <form class="box" v-on:submit.prevent="addTask()">
       <div class="field">
         <div class="control">
           <input
@@ -49,9 +49,8 @@ export default {
               body: this.body,
               board: this.boardId,
             };
-            this.tasks.unshift(newTask);
+            this.$emit("add-task", newTask);
             this.body = "";
-            this.board = "";
           })
           .catch((error) => {
             console.log(error);

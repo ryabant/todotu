@@ -5,11 +5,12 @@
         <div class="container is-max-desktop">
           <Nav />
           <Menu />
-          <NewTask :boardId="board.id" />
+          <NewTask :boardId="board.id" @add-task="onAddTask" />
           <Tasks
             v-for="task in completedTasks"
             v-bind:task="task"
             v-bind:key="task.id"
+            @update-board="updateBoard"
           />
         </div>
       </div>
@@ -57,7 +58,6 @@ export default {
       this.getBoard();
     },
   },
-
   methods: {
     getBoard() {
       const id = this.$route.params.id;
@@ -72,6 +72,12 @@ export default {
           this.board;
         })
         .catch((error) => console.log(error));
+    },
+    onAddTask(item) {
+      this.board.tasks.unshift(item);
+    },
+    updateBoard() {
+      this.getBoard();
     },
   },
 };

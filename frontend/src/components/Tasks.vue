@@ -44,12 +44,16 @@ export default {
         data: {
           completed: true,
         },
+      }).then(() => {
+        this.$emit("update-board");
       });
     },
     deleteTask(task_id) {
       axios({
         method: "delete",
         url: "api/tasks/" + task_id + "/",
+      }).then(() => {
+        this.$emit("update-board");
       });
     },
     confirmDelete() {
