@@ -3,6 +3,13 @@ $menu-item-hover-background-color:  hsl(0, 29%, 93%);
 $navbar-height: 5.25rem;
 $navbar-item-img-max-height: 2.35rem;
 
+$navbar-item-color: hsl(0, 0%, 21%);
+$navbar-item-hover-color: hsl(0, 0%, 4%);
+$navbar-item-hover-background-color: rgb(214, 219, 245);
+$navbar-item-active-color: hsl(0, 0%, 4%);
+$navbar-tab-active-color: hsl(229, 53%,  53%);
+
+
 input[type='checkbox'] {
     -webkit-appearance:none;
     width:20px;
@@ -15,4 +22,7 @@ input[type='checkbox']:checked {
     background: #abd;
 }
 
+
+
 @import "../../node_modules/bulma/";
+

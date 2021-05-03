@@ -11,11 +11,11 @@
           />
         </div>
       </div>
-      <div class="field">
+      <!-- <div class="field">
         <p class="control">
           <button class="button is-link">Add Task</button>
         </p>
-      </div>
+      </div> -->
     </form>
   </div>
 </template>

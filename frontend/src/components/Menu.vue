@@ -1,41 +1,29 @@
 <template>
   <div class="box">
     <div class="field is-grouped is-grouped-multiline">
-      <div class="control" v-for="board in boards" v-bind:key="board.id">
-        <!-- <span class="tag is-medium">Completed &#127942;</span> -->
-        <div class="tags has-addons">
-          <router-link class="tag is-medium" :to="'/boards/' + board.id">
-            {{ board.name }}
-            <!-- <button class="delete is-small" @click="deleteBoard(board.id)"></button> -->
-            <!-- <modal-delete
-                  ref="modal"
-                  @confirm="deleteBoard(board.id)"
-                ></modal-delete> -->
-          </router-link>
-          <a class="tag is-delete is-medium" @click="deleteBoard(board.id)"></a>
-        </div>
+      <div v-for="board in boards" v-bind:key="board.id">
+        <router-link class="navbar-item" :to="'/boards/' + board.id">
+          {{ board.name }}
+        </router-link>
       </div>
-      <div class="control">
-        <a
-          ><span class="tag is-link is-medium" @click="confirmAddBoard"
-            >+</span
-          ></a
-        >
+      <p class="control">
+        <a class="button is-link" @click="confirmAddBoard">+</a>
 
         <modal-add-board ref="modal" @add-board="addBoard"></modal-add-board>
-      </div>
+      </p>
     </div>
   </div>
 </template>
 
+
+
+
 <script>
 import axios from "axios";
-// import ModalDelete from "../components/modal-delete.vue";
 import ModalAddBoard from "../components/modal-add-board.vue";
 export default {
   name: "Menu",
   components: {
-    // ModalDelete,
     ModalAddBoard,
   },
   data() {
@@ -50,6 +38,11 @@ export default {
   mounted() {
     this.getBoards();
   },
+  watch: {
+    $route() {
+      this.getBoards();
+    },
+  },
   methods: {
     getBoards() {
       axios({
@@ -62,16 +55,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-    deleteBoard(board_id) {
-      console.log(board_id);
-      axios({
-        method: "delete",
-        url: "api/boards/" + board_id + "/",
-      }).then(() => {
-        this.getBoards();
-        this.$router.push("1");
-      });
     },
     confirmDelete() {
       this.$refs.modal.show = true;
