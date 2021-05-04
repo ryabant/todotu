@@ -9,7 +9,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a>Log in</a>
+          <a>Logout</a>
         </div>
       </div>
     </div>
