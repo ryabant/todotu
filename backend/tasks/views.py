@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from .models import Board, Task
 from .serializers import BoardSerializer, TaskSerializer
 
@@ -7,6 +7,7 @@ from .serializers import BoardSerializer, TaskSerializer
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    # permission_classes = [IsAuthenticated]
 
 
 class TaskViewSet(viewsets.ModelViewSet):
