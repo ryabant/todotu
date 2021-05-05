@@ -1,36 +1,44 @@
 <template>
   <div class="login">
-    <div class="columns">
-      <div class="column is-4 is-offset">
-        <h1 class="title">Sign up</h1>
-        <form @submit.prevent="submitForm">
-          <div class="field">
-            <label>Username</label>
-            <div class="control">
-              <input type="text" class="input" v-model="username" />
+    <div class="container">
+      <div class="section is-medium">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="box">
+            <div>
+              <a href="/"><img alt="logo" src="../assets/logo.png" /></a>
             </div>
-          </div>
+            <hr />
+            <h1 class="title">Log in</h1>
+            <form @submit.prevent="submitForm">
+              <div class="field">
+                <label>Username</label>
+                <div class="control">
+                  <input type="text" class="input" v-model="username" />
+                </div>
+              </div>
 
-          <div class="field">
-            <label>Password</label>
-            <div class="control">
-              <input type="password" class="input" v-model="password" />
-            </div>
-          </div>
+              <div class="field">
+                <label>Password</label>
+                <div class="control">
+                  <input type="password" class="input" v-model="password" />
+                </div>
+              </div>
 
-          <div class="notification is-danger" v-if="errors.length">
-            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
-          </div>
+              <div class="notification is-danger" v-if="errors.length">
+                <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+              </div>
 
-          <div class="field">
-            <div class="control">
-              <button class="button is-dark">Login</button>
-            </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button is-link">Login</button>
+                </div>
+              </div>
+              <hr />
+              Don't have an account?
+              <router-link to="/users/register">Sign up!</router-link>
+            </form>
           </div>
-          <hr />
-          Or <router-link to="/users/register">click here</router-link> to sign
-          up!
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -68,10 +76,9 @@ export default {
           .post("users/login/", formData)
           .then((response) => {
             const token = response.data.token;
-            this.$store.commit("setToken", token, this.username);
+            this.$store.commit("setToken", token);
             axios.defaults.headers.common["Authorization"] = "Token " + token;
             localStorage.setItem("token", token);
-            localStorage.setItem("username", this.username);
             this.$router.push("/boards/1");
           })
           .catch((error) => {

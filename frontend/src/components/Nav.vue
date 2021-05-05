@@ -9,9 +9,24 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a>Logout</a>
+          <a @click="logout">Logout</a>
         </div>
       </div>
     </div>
   </nav>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Nav",
+  methods: {
+    logout() {
+      axios.defaults.headers.common["Authorization"] = "";
+      localStorage.removeItem("token");
+      this.$store.commit("removeToken");
+      this.$router.push("/users/login");
+    },
+  },
+};
+</script>

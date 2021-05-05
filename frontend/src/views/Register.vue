@@ -1,42 +1,51 @@
 <template>
   <div class="register">
-    <div class="columns">
-      <div class="column is-4 is-offset">
-        <h1 class="title">Sign up</h1>
-        <form @submit.prevent="submitForm">
-          <div class="field">
-            <label>Username</label>
-            <div class="control">
-              <input type="text" class="input" v-model="username" />
+    <div class="container">
+      <div class="section is-medium">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="box">
+            <div>
+              <a href="/"><img alt="logo" src="../assets/logo.png" /></a>
             </div>
-          </div>
+            <hr />
+            <h1 class="title">Sign up</h1>
+            <form @submit.prevent="submitForm">
+              <div class="field">
+                <label>Username</label>
+                <div class="control">
+                  <input type="text" class="input" v-model="username" />
+                </div>
+              </div>
 
-          <div class="field">
-            <label>Password</label>
-            <div class="control">
-              <input type="password" class="input" v-model="password" />
-            </div>
-          </div>
+              <div class="field">
+                <label>Password</label>
+                <div class="control">
+                  <input type="password" class="input" v-model="password" />
+                </div>
+              </div>
 
-          <div class="field">
-            <label>Repeat password</label>
-            <div class="control">
-              <input type="password" class="input" v-model="password2" />
-            </div>
-          </div>
+              <div class="field">
+                <label>Repeat password</label>
+                <div class="control">
+                  <input type="password" class="input" v-model="password2" />
+                </div>
+              </div>
 
-          <div class="notification is-danger" v-if="errors.length">
-            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
-          </div>
+              <div class="notification is-danger" v-if="errors.length">
+                <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+              </div>
 
-          <div class="field">
-            <div class="control">
-              <button class="button is-dark">Sign up</button>
-            </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button is-link">Sign up</button>
+                </div>
+              </div>
+              <hr />
+              Already signed up?
+              <router-link to="/users/login">Login!</router-link>
+            </form>
           </div>
-          <hr />
-          Or <router-link to="/users/login">click here</router-link> to log in!
-        </form>
+        </div>
       </div>
     </div>
   </div>
