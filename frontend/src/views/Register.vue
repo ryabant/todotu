@@ -75,7 +75,7 @@ export default {
         axios
           .post("users/register/", formData)
           .then(() => {
-            this.$router.push("/login");
+            this.$router.push("/users/login");
           })
           .catch((error) => {
             if (error.response) {

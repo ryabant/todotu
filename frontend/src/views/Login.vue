@@ -68,9 +68,10 @@ export default {
           .post("users/login/", formData)
           .then((response) => {
             const token = response.data.token;
-            this.$store.commit("setToken", token);
+            this.$store.commit("setToken", token, this.username);
             axios.defaults.headers.common["Authorization"] = "Token " + token;
             localStorage.setItem("token", token);
+            localStorage.setItem("username", this.username);
             this.$router.push("/boards/1");
           })
           .catch((error) => {

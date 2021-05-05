@@ -66,14 +66,12 @@ export default {
           url: "api/boards/",
           data: {
             name: item.name,
-            owner: 1,
           },
         })
           .then((response) => {
             let newBoard = {
               id: response.data.id,
               name: item.name,
-              owner: 1,
             };
             this.boards.push(newBoard);
           })

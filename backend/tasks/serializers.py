@@ -12,6 +12,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class BoardSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, required=False)
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    # owner = serializers.CharField(source="owner.username", read_only=True)
 
     class Meta:
         model = Board
