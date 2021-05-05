@@ -111,7 +111,7 @@ export default {
         url: "api/boards/" + board_id + "/",
       }).then(() => {
         this.$refs.modal.show = false;
-        this.$router.push("2"); // TODO
+        this.$router.push("/boards/"); // TODO
       });
     },
     confirmDeleteBoard() {

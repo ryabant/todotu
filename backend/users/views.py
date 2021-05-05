@@ -1,6 +1,7 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import mixins
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -21,20 +22,25 @@ class UserViewSet(
     # permission_classes = [IsAuthenticated]
 
 
-@api_view(
-    [
-        "POST",
-    ]
-)
-def registration_view(request):
-    if request.method == "POST":
+# @api_view(["POST", ])
+# def registration_view(request):
+#     if request.method == "POST":
+#         serializer = RegistrationSerializer(data=request.data)
+#         data = {}
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             data["username"] = user.username
+#             token = Token.objects.get(user=user).key
+#             data["token"] = token
+#         else:
+#             data = serializer.errors
+#     return Response(data)
+
+class CustomUserCreate(APIView):
+    def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
-        data = {}
         if serializer.is_valid():
-            user = serializer.save()
-            data["username"] = user.username
-            token = Token.objects.get(user=user).key
-            data["token"] = token
-        else:
-            data = serializer.errors
-    return Response(data)
+            newuser = serializer.save()
+            if newuser:
+                return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

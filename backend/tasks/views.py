@@ -7,7 +7,7 @@ from .serializers import BoardSerializer, TaskSerializer
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class TaskViewSet(viewsets.ModelViewSet):
