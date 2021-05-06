@@ -13,7 +13,7 @@ router.register(r"users", UserViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
-    path("admin/", admin.site.urls),
+    path("backdoor/", admin.site.urls),
     path("users/login/", obtain_auth_token, name="login"),
     path("users/register/", CustomUserCreate.as_view(), name="register"),
 ]

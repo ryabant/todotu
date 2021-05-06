@@ -1,15 +1,29 @@
 <template>
   <div class="box">
     <div class="field is-grouped is-grouped-multiline">
-      <div v-for="board in boards" v-bind:key="board.id">
-        <router-link class="navbar-item" :to="'/boards/' + board.id">
-          {{ board.name }}
-        </router-link>
+      <div class="control" v-for="board in boards" v-bind:key="board.id">
+        <div class="tags are-large">
+          <router-link class="navbar-item tag" :to="'/boards/' + board.id">
+            {{ board.name }}
+          </router-link>
+        </div>
       </div>
       <p class="control">
-        <a class="button is-link" @click="confirmAddBoard">+</a>
+        <a class="button is-link" @click="confirmAddBoard"
+          ><i class="fas fa-plus"></i
+        ></a>
 
         <modal-add-board ref="modal" @add-board="addBoard"></modal-add-board>
+      </p>
+      <p class="control">
+        <a class="button is-danger" @click="confirmDeleteBoard"
+          ><i class="fas fa-trash"></i
+        ></a>
+
+        <modal-delete
+          ref="modal"
+          @confirm="deleteBoard(boardId)"
+        ></modal-delete>
       </p>
     </div>
   </div>
@@ -21,20 +35,21 @@
 <script>
 import axios from "axios";
 import ModalAddBoard from "../components/modal-add-board.vue";
+import ModalDelete from "../components/modal-delete.vue";
 export default {
   name: "Menu",
   components: {
     ModalAddBoard,
+    ModalDelete,
   },
   data() {
     return {
       boards: [],
       name: "",
+      index: "",
     };
   },
-  props: {
-    board: Object,
-  },
+  props: ["boardId"],
   mounted() {
     this.getBoards();
   },
@@ -85,6 +100,18 @@ export default {
       }
     },
     confirmAddBoard() {
+      this.$refs.modal.show = true;
+    },
+    deleteBoard(boardId) {
+      axios({
+        method: "delete",
+        url: "api/boards/" + boardId + "/",
+      }).then(() => {
+        this.$refs.modal.show = false;
+        this.$router.push("/boards/"); // TODO
+      });
+    },
+    confirmDeleteBoard() {
       this.$refs.modal.show = true;
     },
   },

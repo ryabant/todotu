@@ -4,31 +4,7 @@
       <div class="column">
         <div class="container is-max-desktop">
           <Nav />
-          <Menu />
-          <div class="container">
-            <div class="level">
-              <!-- <div class="level-left">
-                <div class="level-item">
-                  <a class="button is-success is-small is-light"
-                    >Completed &#11088;</a
-                  >
-                </div>
-              </div> -->
-              <div class="level-right">
-                <div class="level-item">
-                  <a
-                    class="button is-danger is-small is-light"
-                    @click="confirmDeleteBoard"
-                    >Delete board</a
-                  >
-                </div>
-              </div>
-            </div>
-            <modal-delete
-              ref="modal"
-              @confirm="deleteBoard(board.id)"
-            ></modal-delete>
-          </div>
+          <Menu :boardId="board.id" />
           <NewTask :boardId="board.id" @add-task="onAddTask" />
           <Tasks
             v-for="task in completedTasks"
@@ -48,7 +24,6 @@ import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
-import ModalDelete from "../components/modal-delete.vue";
 
 export default {
   name: "Board",
@@ -57,7 +32,6 @@ export default {
     Tasks,
     Menu,
     NewTask,
-    ModalDelete,
   },
   data() {
     return {
