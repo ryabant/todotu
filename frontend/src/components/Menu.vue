@@ -74,11 +74,11 @@ export default {
               name: item.name,
             };
             this.boards.push(newBoard);
-          })
-          .then(() => {
+            this.$router.push(`/boards/${newBoard.id}`);
             this.getBoards();
             this.$refs.modal.show = false;
           })
+          .then(() => {})
           .catch((error) => {
             console.log(error);
           });

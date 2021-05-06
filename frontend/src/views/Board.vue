@@ -7,13 +7,13 @@
           <Menu />
           <div class="container">
             <div class="level">
-              <div class="level-left">
+              <!-- <div class="level-left">
                 <div class="level-item">
                   <a class="button is-success is-small is-light"
                     >Completed &#11088;</a
                   >
                 </div>
-              </div>
+              </div> -->
               <div class="level-right">
                 <div class="level-item">
                   <a

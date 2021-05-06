@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer, RegistrationSerializer
 from .permissions import IsSelf
+from tasks.demo import create_demo_board
 
 
 User = get_user_model()
@@ -29,5 +30,6 @@ class CustomUserCreate(APIView):
         if serializer.is_valid():
             newuser = serializer.save()
             if newuser:
+                create_demo_board(newuser)
                 return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
