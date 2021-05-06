@@ -39,7 +39,6 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
@@ -49,7 +48,6 @@ import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
-import Footer from "../components/Footer.vue";
 import ModalDelete from "../components/modal-delete.vue";
 
 export default {
@@ -59,7 +57,6 @@ export default {
     Tasks,
     Menu,
     NewTask,
-    Footer,
     ModalDelete,
   },
   data() {
