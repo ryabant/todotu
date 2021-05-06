@@ -13,7 +13,10 @@
           ><i class="fas fa-plus"></i
         ></a>
 
-        <modal-add-board ref="modal" @add-board="addBoard"></modal-add-board>
+        <modal-add-board
+          ref="modal_add_board"
+          @add-board="addBoard"
+        ></modal-add-board>
       </p>
       <p class="control">
         <a class="button is-danger" @click="confirmDeleteBoard"
@@ -21,7 +24,7 @@
         ></a>
 
         <modal-delete
-          ref="modal"
+          ref="modal_del_board"
           @confirm="deleteBoard(boardId)"
         ></modal-delete>
       </p>
@@ -91,7 +94,7 @@ export default {
             this.boards.push(newBoard);
             this.$router.push(`/boards/${newBoard.id}`);
             this.getBoards();
-            this.$refs.modal.show = false;
+            this.$refs.modal_add_board.show = false;
           })
           .then(() => {})
           .catch((error) => {
@@ -100,19 +103,19 @@ export default {
       }
     },
     confirmAddBoard() {
-      this.$refs.modal.show = true;
+      this.$refs.modal_add_board.show = true;
     },
     deleteBoard(boardId) {
       axios({
         method: "delete",
         url: "api/boards/" + boardId + "/",
       }).then(() => {
-        this.$refs.modal.show = false;
+        this.$refs.modal_del_board.show = false;
         this.$router.push("/boards/"); // TODO
       });
     },
     confirmDeleteBoard() {
-      this.$refs.modal.show = true;
+      this.$refs.modal_del_board.show = true;
     },
   },
 };

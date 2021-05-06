@@ -3,37 +3,37 @@
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Add Board</p>
+        <p class="modal-card-title">Add Task</p>
         <button class="delete" aria-label="close" @click="closeModal"></button>
       </header>
-      <form v-on:submit.prevent="addBoard">
+      <form v-on:submit.prevent="addTask">
         <section class="modal-card-body">
           <div class="field">
             <div class="control">
               <input
                 class="input"
                 type="text"
-                placeholder="Board name"
-                v-model="name"
+                placeholder="Task name"
+                v-model="body"
               />
             </div>
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-link" @click="onConfirm">Add Board</button>
+          <button class="button is-link" @click="onConfirm">Add Task</button>
         </footer>
       </form>
     </div>
   </div>
 </template>
- 
+
 <script>
 export default {
-  name: "ModalAddBoard",
+  name: "ModalAddTask",
   data() {
     return {
       show: false,
-      name: "",
+      body: "",
     };
   },
   methods: {
@@ -41,11 +41,10 @@ export default {
       this.show = false;
     },
     onConfirm() {
-      const payload = { name: this.name };
-      this.$emit("add-board", payload);
-      this.name = "";
+      const payload = { body: this.body };
+      this.$emit("new-task", payload);
+      this.body = "";
     },
   },
 };
 </script>
- 

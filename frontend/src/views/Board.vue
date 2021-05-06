@@ -6,12 +6,17 @@
           <Nav />
           <Menu :boardId="board.id" />
           <NewTask :boardId="board.id" @add-task="onAddTask" />
-          <Tasks
-            v-for="task in completedTasks"
-            v-bind:task="task"
-            v-bind:key="task.id"
-            @update-board="updateBoard"
-          />
+          <hr />
+          <div
+            class="is-flex is-flex-wrap-wrap is-justify-content-space-around"
+          >
+            <Tasks
+              v-for="task in completedTasks"
+              v-bind:task="task"
+              v-bind:key="task.id"
+              @update-board="updateBoard"
+            />
+          </div>
         </div>
       </div>
     </div>

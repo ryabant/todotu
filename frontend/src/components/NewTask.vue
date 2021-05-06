@@ -1,29 +1,25 @@
 <template>
-  <div class="new-card">
-    <form class="box" v-on:submit.prevent="addTask()">
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Task name"
-            v-model="body"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-link">Add Task</button>
-        </p>
-      </div>
-    </form>
+  <div>
+    <a class="button is-light is-medium" @click="confirmAddTask">
+      <span class="icon-text">
+        <span class="icon is-medium">
+          <i class="fas fa-lg fa-plus"></i>
+        </span>
+        <span class="title is-4">Add task</span>
+      </span>
+    </a>
+    <modal-add-task ref="modal_add_task" @new-task="addTask"></modal-add-task>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ModalAddTask from "../components/modal-add-task.vue";
 export default {
   name: "NewTask",
+  components: {
+    ModalAddTask,
+  },
   props: ["boardId"],
   data() {
     return {
@@ -33,29 +29,33 @@ export default {
     };
   },
   methods: {
-    addTask() {
-      if (this.body) {
+    addTask(item) {
+      if (item.body) {
         axios({
           method: "post",
           url: "api/tasks/",
           data: {
-            body: this.body,
+            body: item.body,
             board: this.boardId,
           },
         })
           .then((response) => {
             let newTask = {
               id: response.data.id,
-              body: this.body,
+              body: item.body,
               board: this.boardId,
             };
             this.$emit("add-task", newTask);
-            this.body = "";
+            this.$refs.modal_add_task.show = false;
+            // this.body = "";
           })
           .catch((error) => {
             console.log(error);
           });
       }
+    },
+    confirmAddTask() {
+      this.$refs.modal_add_task.show = true;
     },
   },
 };
