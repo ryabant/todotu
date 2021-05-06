@@ -1,11 +1,8 @@
 <template>
   <div>
-    <a class="button is-light is-medium" @click="confirmAddTask">
-      <span class="icon-text">
-        <span class="icon is-medium">
-          <i class="fas fa-lg fa-plus"></i>
-        </span>
-        <span class="title is-4">Add task</span>
+    <a class="button is-large is-link" @click="confirmAddTask">
+      <span class="icon is-medium">
+        <i class="fas fa-lg fa-plus"></i>
       </span>
     </a>
     <modal-add-task ref="modal_add_task" @new-task="addTask"></modal-add-task>
