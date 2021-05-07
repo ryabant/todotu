@@ -134,11 +134,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-    ]
-}
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES": [
+#         "rest_framework.authentication.TokenAuthentication",
+#     ]
+# }
 
 # Auth user
 AUTH_USER_MODEL = "users.User"

@@ -2,7 +2,7 @@
   <a class="box">
     <div class="card-content">
       <p class="title">
-        {{ task.body }}
+        {{ task.title }}
       </p>
     </div>
   </a>

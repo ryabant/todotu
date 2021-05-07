@@ -21,25 +21,26 @@ export default {
   data() {
     return {
       tasks: [],
+      title: "",
       body: "",
       board: "",
     };
   },
   methods: {
     addTask(item) {
-      if (item.body) {
+      if (item.title) {
         axios({
           method: "post",
           url: "api/tasks/",
           data: {
-            body: item.body,
+            title: item.title,
             board: this.boardId,
           },
         })
           .then((response) => {
             let newTask = {
               id: response.data.id,
-              body: item.body,
+              title: item.title,
               board: this.boardId,
             };
             this.$emit("add-task", newTask);

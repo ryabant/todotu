@@ -10,7 +10,7 @@
             <hr />
             <div class="is-flex is-justify-content-space-evenly">
               <router-link
-                to="/users/register"
+                to="/users/login"
                 class="button is-link is-outlined is-medium"
                 >Login</router-link
               >

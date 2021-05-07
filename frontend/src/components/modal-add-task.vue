@@ -14,7 +14,7 @@
                 class="input"
                 type="text"
                 placeholder="Task name"
-                v-model="body"
+                v-model="title"
               />
             </div>
           </div>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       show: false,
-      body: "",
+      title: "",
     };
   },
   methods: {
@@ -41,9 +41,9 @@ export default {
       this.show = false;
     },
     onConfirm() {
-      const payload = { body: this.body };
+      const payload = { title: this.title };
       this.$emit("new-task", payload);
-      this.body = "";
+      this.title = "";
     },
   },
 };
