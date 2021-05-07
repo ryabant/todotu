@@ -1,44 +1,80 @@
 <template>
-  <a class="box">
-    <div class="card-content">
-      <p class="title">
-        {{ task.title }}
-      </p>
-    </div>
-  </a>
+  <div>
+    <a class="box" @click="confirmEditTask">
+      <div class="card-content">
+        <p class="title">
+          {{ task.title }}
+        </p>
+      </div>
+    </a>
+    <modal-edit-task
+      ref="modal_edit_task"
+      :task="task"
+      @edit-task="onEditTask"
+    ></modal-edit-task>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import ModalEditTask from "../components/modal-edit-task.vue";
 export default {
   name: "Tasks",
   props: {
     task: Object,
   },
-  components: {},
+  components: { ModalEditTask },
   methods: {
-    setStatus(task_id) {
+    // setStatus(task_id) {
+    //   axios({
+    //     method: "patch",
+    //     url: "api/tasks/" + task_id + "/",
+    //     data: {
+    //       completed: true,
+    //     },
+    //   }).then(() => {
+    //     this.$emit("update-board");
+    //   });
+    // },
+    // deleteTask(task_id) {
+    //   axios({
+    //     method: "delete",
+    //     url: "api/tasks/" + task_id + "/",
+    //   }).then(() => {
+    //     this.$emit("update-board");
+    //   });
+    // },
+    // confirmDelete() {
+    //   this.$refs.modal.show = true;
+    // },
+    onEditTask(item) {
       axios({
         method: "patch",
-        url: "api/tasks/" + task_id + "/",
+        url: `api/tasks/${this.task.id}/`,
         data: {
-          completed: true,
+          title: item.title,
+          body: item.body,
+          priority: item.priority,
         },
-      }).then(() => {
-        this.$emit("update-board");
-      });
+      })
+        .then(() => {
+          // let newTask = {
+          //   id: response.data.id,
+          //   title: item.title,
+          //   body: item.body,
+          //   priority: item.priority,
+          //   board: this.boardId,
+          // };
+          // this.$emit("edit-task", newTask);
+          this.$emit("update-board");
+          this.$refs.modal_edit_task.show = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    deleteTask(task_id) {
-      axios({
-        method: "delete",
-        url: "api/tasks/" + task_id + "/",
-      }).then(() => {
-        this.$emit("update-board");
-      });
-    },
-    confirmDelete() {
-      this.$refs.modal.show = true;
+    confirmEditTask() {
+      this.$refs.modal_edit_task.show = true;
     },
   },
 };

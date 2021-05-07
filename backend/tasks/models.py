@@ -23,9 +23,9 @@ class Tag(models.Model):
 
 
 class Priority(models.TextChoices):
-    HIGH = "H", "High"
-    MEDIUM = "M", "Medium"
-    LOW = "L", "Low"
+    HIGH = "High"
+    MEDIUM = "Medium"
+    LOW = "Low"
 
 
 class Task(models.Model):
@@ -33,9 +33,9 @@ class Task(models.Model):
     body = models.TextField(blank=True)
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name="tasks")
     priority = models.CharField(
-        max_length=1, choices=Priority.choices, default=Priority.MEDIUM
+        max_length=10, choices=Priority.choices, default=Priority.MEDIUM
     )
-    tags = models.ManyToManyField(Tag, related_name="tasks")
+    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
     created = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
 

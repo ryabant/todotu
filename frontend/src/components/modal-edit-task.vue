@@ -3,10 +3,10 @@
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">New task</p>
+        <p class="modal-card-title">Edit task</p>
         <button class="delete" aria-label="close" @click="closeModal"></button>
       </header>
-      <form v-on:submit.prevent="addTask">
+      <form v-on:submit.prevent="onEditTask">
         <section class="modal-card-body">
           <div class="field">
             <label class="label">Title</label>
@@ -46,7 +46,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-link" @click="onConfirm">Add Task</button>
+          <button class="button is-link" @click="onConfirm">Save</button>
         </footer>
       </form>
     </div>
@@ -55,7 +55,10 @@
 
 <script>
 export default {
-  name: "ModalAddTask",
+  name: "ModalEditTask",
+  props: {
+    task: Object,
+  },
   data() {
     return {
       show: false,
@@ -64,11 +67,14 @@ export default {
       priority: "",
     };
   },
+  mounted() {
+    this.title = this.task.title;
+    this.body = this.task.body;
+    this.priority = this.task.priority;
+  },
   methods: {
     closeModal() {
       this.show = false;
-      this.title = "";
-      this.body = "";
     },
     onConfirm() {
       const payload = {
@@ -76,9 +82,7 @@ export default {
         body: this.body,
         priority: this.priority,
       };
-      this.$emit("new-task", payload);
-      this.title = "";
-      this.body = "";
+      this.$emit("edit-task", payload);
     },
   },
 };

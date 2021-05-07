@@ -34,6 +34,8 @@ export default {
           url: "api/tasks/",
           data: {
             title: item.title,
+            body: item.body,
+            priority: item.priority,
             board: this.boardId,
           },
         })
@@ -41,11 +43,12 @@ export default {
             let newTask = {
               id: response.data.id,
               title: item.title,
+              body: item.body,
+              priority: item.priority,
               board: this.boardId,
             };
             this.$emit("add-task", newTask);
             this.$refs.modal_add_task.show = false;
-            // this.body = "";
           })
           .catch((error) => {
             console.log(error);

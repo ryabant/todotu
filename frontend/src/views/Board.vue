@@ -12,7 +12,7 @@
           >
             <NewTask :boardId="board.id" @add-task="onAddTask" />
             <Tasks
-              v-for="task in completedTasks"
+              v-for="task in board.tasks"
               v-bind:task="task"
               v-bind:key="task.id"
               @update-board="updateBoard"
