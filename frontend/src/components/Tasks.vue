@@ -5,11 +5,21 @@
         <p class="title">
           {{ task.title }}
         </p>
+        <div class="field is-grouped is-grouped-multiline">
+          <div class="tags are-medium">
+            <div class="control">
+              <span class="tag" v-for="tag in task.tags" :key="tag.id">{{
+                tag
+              }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </a>
     <modal-edit-task
       ref="modal_edit_task"
       :task="task"
+      :tags="tags"
       @edit-task="onEditTask"
     ></modal-edit-task>
   </div>
@@ -22,6 +32,7 @@ export default {
   name: "Tasks",
   props: {
     task: Object,
+    tags: Object,
   },
   components: { ModalEditTask },
   methods: {

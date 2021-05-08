@@ -10,11 +10,16 @@
           <div
             class="is-flex is-flex-wrap-wrap is-justify-content-space-around is-align-content-stretch"
           >
-            <NewTask :boardId="board.id" @add-task="onAddTask" />
+            <NewTask
+              :boardId="board.id"
+              v-bind:tags="tags"
+              @add-task="onAddTask"
+            />
             <Tasks
               v-for="task in board.tasks"
               v-bind:task="task"
               v-bind:key="task.id"
+              v-bind:tags="tags"
               @update-board="updateBoard"
             />
           </div>
@@ -30,7 +35,6 @@ import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
-
 export default {
   name: "Board",
   components: {
@@ -44,10 +48,12 @@ export default {
       board: {
         tasks: [],
       },
+      tags: {},
     };
   },
   mounted() {
     this.getBoard();
+    this.getTags();
   },
   computed: {
     completedTasks() {
@@ -93,6 +99,16 @@ export default {
     },
     confirmDeleteBoard() {
       this.$refs.modal.show = true;
+    },
+    getTags() {
+      axios({
+        method: "get",
+        url: `api/tags/`,
+      })
+        .then((response) => {
+          this.tags = response.data;
+        })
+        .catch((error) => console.log(error));
     },
   },
 };

@@ -5,7 +5,11 @@
         <i class="fas fa-lg fa-plus"></i>
       </span>
     </a>
-    <modal-add-task ref="modal_add_task" @new-task="addTask"></modal-add-task>
+    <modal-add-task
+      ref="modal_add_task"
+      :tags="tags"
+      @new-task="addTask"
+    ></modal-add-task>
   </div>
 </template>
 
@@ -17,7 +21,7 @@ export default {
   components: {
     ModalAddTask,
   },
-  props: ["boardId"],
+  props: ["boardId", "tags"],
   data() {
     return {
       tasks: [],
@@ -36,6 +40,7 @@ export default {
             title: item.title,
             body: item.body,
             priority: item.priority,
+            tags: item.tags,
             board: this.boardId,
           },
         })
@@ -45,6 +50,7 @@ export default {
               title: item.title,
               body: item.body,
               priority: item.priority,
+              tags: item.tags,
               board: this.boardId,
             };
             this.$emit("add-task", newTask);

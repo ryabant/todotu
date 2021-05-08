@@ -44,6 +44,30 @@
               </div>
             </div>
           </div>
+          <div class="field">
+            <label class="label">Tags</label>
+            <div class="control">
+              <div class="select is-multiple">
+                <select v-model="selected">
+                  <option v-for="tag in tags" :key="tag.id">
+                    {{ tag }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="field">
+            <label class="label">Tags</label>
+            <div class="control">
+              <input
+                v-model="tags"
+                class="input"
+                type="text"
+                data-type="tags"
+                placeholder="Choose Tags"
+              />
+            </div>
+          </div> -->
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Save</button>
@@ -58,6 +82,7 @@ export default {
   name: "ModalEditTask",
   props: {
     task: Object,
+    tags: Object,
   },
   data() {
     return {
@@ -65,12 +90,15 @@ export default {
       title: "",
       body: "",
       priority: "",
+      selected: "",
     };
   },
   mounted() {
+    // const tagsInputs = BulmaTagsInput.attach();
     this.title = this.task.title;
     this.body = this.task.body;
     this.priority = this.task.priority;
+    // this.tags = this.task.tags;
   },
   methods: {
     closeModal() {
@@ -81,6 +109,7 @@ export default {
         title: this.title,
         body: this.body,
         priority: this.priority,
+        tags: this.selected,
       };
       this.$emit("edit-task", payload);
     },

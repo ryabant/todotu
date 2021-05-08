@@ -44,6 +44,18 @@
               </div>
             </div>
           </div>
+          <div class="field">
+            <label class="label">Tags</label>
+            <div class="control">
+              <div class="select is-multiple">
+                <select multiple size="4" v-model="selected">
+                  <option v-for="tag in tags" :key="tag.id">
+                    {{ tag }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Add Task</button>
@@ -62,8 +74,10 @@ export default {
       title: "",
       body: "",
       priority: "",
+      selected: [],
     };
   },
+  props: { tags: Object },
   methods: {
     closeModal() {
       this.show = false;
@@ -75,6 +89,7 @@ export default {
         title: this.title,
         body: this.body,
         priority: this.priority,
+        tags: this.selected,
       };
       this.$emit("new-task", payload);
       this.title = "";
