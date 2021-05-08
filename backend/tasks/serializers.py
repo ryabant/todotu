@@ -13,7 +13,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ["id", "name", "task", "owner"]
+        fields = ["id", "name", "owner"]
 
     def to_representation(self, value):
         return f"{value.name}"
