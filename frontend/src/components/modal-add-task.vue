@@ -49,10 +49,15 @@
             <div class="control">
               <div class="select is-multiple">
                 <select multiple size="4" v-model="selected">
-                  <option v-for="tag in tags" :key="tag.id">
-                    {{ tag }}
+                  <option
+                    v-for="tag in tags"
+                    :key="tag.id"
+                    :reduce="(selected) => selected.tag.id"
+                  >
+                    {{ tag.name }}
                   </option>
                 </select>
+                <span>Выбрано: {{ selected }}</span>
               </div>
             </div>
           </div>
@@ -91,6 +96,7 @@ export default {
         priority: this.priority,
         tags: this.selected,
       };
+      console.log(payload);
       this.$emit("new-task", payload);
       this.title = "";
       this.body = "";

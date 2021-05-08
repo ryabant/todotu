@@ -17,6 +17,13 @@ class Board(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
+    # color = models.CharField(max_length=7)
+    owner = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="tags")
+
+
 class Priority(models.TextChoices):
     HIGH = "High"
     MEDIUM = "Medium"
@@ -31,8 +38,7 @@ class Task(models.Model):
     priority = models.CharField(
         max_length=10, choices=Priority.choices, default=Priority.MEDIUM
     )
-    # tags = models.ForeignKey(Tag, related_name="tasks",
-    #                          blank=True, on_delete=models.PROTECT)
+    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
     created = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
 
@@ -41,15 +47,3 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Tag(models.Model):
-    task = models.ForeignKey(Task, related_name="tags",
-                             blank=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    # color = models.CharField(max_length=7)
-    # owner = models.ForeignKey(
-    #     User, on_delete=models.PROTECT, related_name="tags")
-
-    def __str__(self):
-        return f'{self.name}'

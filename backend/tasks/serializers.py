@@ -15,13 +15,11 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ["id", "name", "owner"]
 
-    def to_representation(self, value):
-        return f"{value.name}"
-
 
 class TaskSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
-    tags = TagSerializer(many=True, required=False)
+    tags = serializers.SlugRelatedField(
+        queryset=Tag.objects.all(), slug_field='name', many=True, required=False)
 
     class Meta:
         model = Task
@@ -37,15 +35,8 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        user = self.context["request"].user
-        tags_data = validated_data.pop("tags")
-        task = Task.objects.create(**validated_data)
-
-        for tag_data in tags_data:
-            tag = Tag.objects.create(owner=user, **tag_data)
-            task.tags.add(tag)
-
-        return task
+        tags = validated_data["tags"]
+        return super().create(validated_data)
 
 
 class BoardSerializer(serializers.ModelSerializer):

@@ -21,7 +21,7 @@ export default {
   components: {
     ModalAddTask,
   },
-  props: ["boardId", "tags"],
+  props: { boardId: Number, tags: Object },
   data() {
     return {
       tasks: [],

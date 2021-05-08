@@ -28,6 +28,7 @@
 <script>
 import axios from "axios";
 import ModalEditTask from "../components/modal-edit-task.vue";
+
 export default {
   name: "Tasks",
   props: {
