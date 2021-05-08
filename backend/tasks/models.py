@@ -19,7 +19,7 @@ class Board(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
-    # color = models.CharField(max_length=7)
+    color = models.CharField(max_length=7)
     owner = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="tags")
 

@@ -13,7 +13,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ["id", "name", "owner"]
+        fields = ["id", "name", "color", "owner"]
 
 
 class TaskSerializer(serializers.ModelSerializer):

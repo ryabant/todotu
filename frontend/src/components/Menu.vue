@@ -28,6 +28,9 @@
           @confirm="deleteBoard(boardId)"
         ></modal-delete>
       </p>
+      <div class="navbar-end">
+        <a class="button is-warning"><i class="fas fa-tags"></i></a>
+      </div>
     </div>
   </div>
 </template>
