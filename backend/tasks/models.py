@@ -7,19 +7,14 @@ User = get_user_model()
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name="boards")
+    owner = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="boards")
 
     class Meta:
         ordering = ["id"]
 
     def __str__(self):
         return self.name
-
-
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-    # color = models.CharField(max_length=7)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name="tags")
 
 
 class Priority(models.TextChoices):
@@ -31,11 +26,13 @@ class Priority(models.TextChoices):
 class Task(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(blank=True)
-    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name="tasks")
+    board = models.ForeignKey(
+        Board, on_delete=models.CASCADE, related_name="tasks")
     priority = models.CharField(
         max_length=10, choices=Priority.choices, default=Priority.MEDIUM
     )
-    tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
+    # tags = models.ForeignKey(Tag, related_name="tasks",
+    #                          blank=True, on_delete=models.PROTECT)
     created = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
 
@@ -44,3 +41,15 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Tag(models.Model):
+    task = models.ForeignKey(Task, related_name="tags",
+                             blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    # color = models.CharField(max_length=7)
+    # owner = models.ForeignKey(
+    #     User, on_delete=models.PROTECT, related_name="tags")
+
+    def __str__(self):
+        return f'{self.name}'
