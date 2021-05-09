@@ -4,6 +4,12 @@
       <span v-if="task.completed === true" class="icon has-text-success"
         ><i class="far fa-check-circle"></i
       ></span>
+      <span v-else-if="task.priority === 'High'" class="icon has-text-danger"
+        ><i class="fas fa-exclamation-circle"></i
+      ></span>
+      <span v-else-if="task.priority === 'Medium'" class="icon has-text-warning"
+        ><i class="fas fa-exclamation-circle"></i
+      ></span>
       <div class="card-content">
         <p class="title">
           {{ task.title }}

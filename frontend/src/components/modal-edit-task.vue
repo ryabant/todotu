@@ -84,14 +84,16 @@ export default {
       show: false,
       title: "",
       body: "",
-      priority: "",
+      priority: "Medium",
       selected: [],
     };
   },
   mounted() {
     this.title = this.task.title;
     this.body = this.task.body;
-    this.priority = this.task.priority;
+    if (this.task.priority) {
+      this.priority = this.task.priority;
+    }
     this.selected = this.task.tags;
   },
   methods: {
