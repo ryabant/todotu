@@ -60,6 +60,12 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Save</button>
+          <button class="button is-danger" @click="onConfirmDeleteTask">
+            <i class="fas fa-trash"></i>
+          </button>
+          <button class="button is-success" @click="onConfirmStatus">
+            <i class="fas fa-check"></i>
+          </button>
         </footer>
       </form>
     </div>
@@ -86,6 +92,7 @@ export default {
     this.title = this.task.title;
     this.body = this.task.body;
     this.priority = this.task.priority;
+    this.selected = this.task.tags;
   },
   methods: {
     closeModal() {
@@ -99,6 +106,12 @@ export default {
         tags: this.selected,
       };
       this.$emit("edit-task", payload);
+    },
+    onConfirmDeleteTask() {
+      this.$emit("delete-task");
+    },
+    onConfirmStatus() {
+      this.$emit("set-status");
     },
   },
 };
