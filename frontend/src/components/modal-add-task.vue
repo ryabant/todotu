@@ -49,11 +49,7 @@
             <div class="control">
               <div class="select is-multiple">
                 <select multiple size="4" v-model="selected">
-                  <option
-                    v-for="tag in tags"
-                    :key="tag.id"
-                    :reduce="(selected) => selected.tag.id"
-                  >
+                  <option v-for="tag in tags" :key="tag.id">
                     {{ tag.name }}
                   </option>
                 </select>

@@ -48,26 +48,15 @@
             <label class="label">Tags</label>
             <div class="control">
               <div class="select is-multiple">
-                <select v-model="selected">
+                <select multiple size="4" v-model="selected">
                   <option v-for="tag in tags" :key="tag.id">
-                    {{ tag }}
+                    {{ tag.name }}
                   </option>
                 </select>
+                <span>Выбрано: {{ selected }}</span>
               </div>
             </div>
           </div>
-          <!-- <div class="field">
-            <label class="label">Tags</label>
-            <div class="control">
-              <input
-                v-model="tags"
-                class="input"
-                type="text"
-                data-type="tags"
-                placeholder="Choose Tags"
-              />
-            </div>
-          </div> -->
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Save</button>
@@ -90,15 +79,13 @@ export default {
       title: "",
       body: "",
       priority: "",
-      selected: "",
+      selected: [],
     };
   },
   mounted() {
-    // const tagsInputs = BulmaTagsInput.attach();
     this.title = this.task.title;
     this.body = this.task.body;
     this.priority = this.task.priority;
-    // this.tags = this.task.tags;
   },
   methods: {
     closeModal() {

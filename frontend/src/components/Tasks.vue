@@ -67,17 +67,19 @@ export default {
           title: item.title,
           body: item.body,
           priority: item.priority,
+          tags: item.tags,
         },
       })
-        .then(() => {
-          // let newTask = {
-          //   id: response.data.id,
-          //   title: item.title,
-          //   body: item.body,
-          //   priority: item.priority,
-          //   board: this.boardId,
-          // };
-          // this.$emit("edit-task", newTask);
+        .then((response) => {
+          let newTask = {
+            id: response.data.id,
+            title: item.title,
+            body: item.body,
+            priority: item.priority,
+            tags: item.tags,
+            board: this.boardId,
+          };
+          this.$emit("edit-task", newTask);
           this.$emit("update-board");
           this.$refs.modal_edit_task.show = false;
         })
