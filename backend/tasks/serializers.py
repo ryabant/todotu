@@ -13,13 +13,14 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ["id", "name", "color", "owner"]
+        fields = ["id", "name", "owner"]
 
 
 class TaskSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
     tags = serializers.SlugRelatedField(
-        queryset=Tag.objects.all(), slug_field='name', many=True, required=False)
+        queryset=Tag.objects.all(), slug_field="name", many=True, required=False
+    )
 
     class Meta:
         model = Task

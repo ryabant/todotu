@@ -29,8 +29,11 @@
         ></modal-delete>
       </p>
       <div class="navbar-end">
-        <a class="button is-warning"><i class="fas fa-tags"></i></a>
+        <a class="button is-warning" @click="onGetTags"
+          ><i class="fas fa-tags"></i
+        ></a>
       </div>
+      <modal-tags ref="modal_tags"></modal-tags>
     </div>
   </div>
 </template>
@@ -42,11 +45,14 @@
 import axios from "axios";
 import ModalAddBoard from "../components/modal-add-board.vue";
 import ModalDelete from "../components/modal-delete.vue";
+import ModalTags from "../components/modal-tags.vue";
+
 export default {
   name: "Menu",
   components: {
     ModalAddBoard,
     ModalDelete,
+    ModalTags,
   },
   data() {
     return {
@@ -99,7 +105,6 @@ export default {
             this.getBoards();
             this.$refs.modal_add_board.show = false;
           })
-          .then(() => {})
           .catch((error) => {
             console.log(error);
           });
@@ -119,6 +124,9 @@ export default {
     },
     confirmDeleteBoard() {
       this.$refs.modal_del_board.show = true;
+    },
+    onGetTags() {
+      this.$refs.modal_tags.show = true;
     },
   },
 };
