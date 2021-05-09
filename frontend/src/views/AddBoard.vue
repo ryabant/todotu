@@ -1,26 +1,32 @@
 <template>
-  <div class="field">
-    <label class="label">Tags</label>
-    <div class="control">
-      <div class="select">
-        <select v-model="selected">
-          <option v-for="tag in tags" :key="tag.id">
-            {{ tag.name }}
-          </option>
-        </select>
+  <div class="board">
+    <div class="columns">
+      <div class="column">
+        <div class="container is-max-desktop">
+          <Nav />
+          <Menu v-bind:tags="tags" @update-tags="getTags" />
+
+          <hr />
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
+import Nav from "../components/Nav.vue";
+import Menu from "../components/Menu.vue";
 
 export default {
-  name: "Tags",
+  name: "AddBoard",
+  components: {
+    Nav,
+    Menu,
+  },
   data() {
     return {
-      selected: "",
-      tags: Object,
+      tags: {},
     };
   },
   mounted() {

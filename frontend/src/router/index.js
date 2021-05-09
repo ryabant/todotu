@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Board from '../views/Board.vue'
+import AddBoard from '../views/Board.vue'
 
 
 const routes = [
@@ -21,24 +22,16 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // },
+  {
+    path: '/boards',
+    name: 'AddBoard',
+    component: AddBoard
+  },
   {
     path: '/boards/:id',
     name: 'Board',
     component: Board
   },
-  // {
-  //   path: '/boards',
-  //   name: 'Board',
-  //   component: Board
-  // },
 ]
 
 const router = createRouter({

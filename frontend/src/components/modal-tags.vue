@@ -10,7 +10,7 @@
         <div class="field is-grouped is-grouped-multiline">
           <div v-for="tag in tags" :key="tag.id" class="control">
             <div class="tags has-addons">
-              <span class="tag is-link is-medium">{{ tag.name }}</span>
+              <span class="tag is-medium">{{ tag.name }}</span>
               <span
                 class="tag is-delete is-medium"
                 @click="deleteTag(tag.id)"
@@ -41,27 +41,14 @@ import axios from "axios";
 
 export default {
   name: "ModalTags",
+  props: { tags: Object },
   data() {
     return {
       show: false,
       name: "",
-      tags: Object,
     };
   },
-  mounted() {
-    this.getTags();
-  },
   methods: {
-    getTags() {
-      axios({
-        method: "get",
-        url: `api/tags/`,
-      })
-        .then((response) => {
-          this.tags = response.data;
-        })
-        .catch((error) => console.log(error));
-    },
     closeModal() {
       this.show = false;
     },
@@ -75,7 +62,8 @@ export default {
           },
         })
           .then(() => {
-            this.getTags();
+            this.$emit("update-tags");
+            this.name = "";
           })
           .catch((error) => {
             console.log(error);
@@ -87,7 +75,7 @@ export default {
         method: "delete",
         url: "api/tags/" + tagId + "/",
       }).then(() => {
-        this.getTags();
+        this.$emit("update-tags");
       });
     },
   },

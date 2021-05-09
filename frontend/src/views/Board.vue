@@ -4,7 +4,7 @@
       <div class="column">
         <div class="container is-max-desktop">
           <Nav />
-          <Menu :boardId="board.id" />
+          <Menu :boardId="board.id" v-bind:tags="tags" @update-tags="getTags" />
 
           <hr />
           <div

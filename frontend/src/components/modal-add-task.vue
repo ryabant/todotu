@@ -53,7 +53,6 @@
                     {{ tag.name }}
                   </option>
                 </select>
-                <span>Выбрано: {{ selected }}</span>
               </div>
             </div>
           </div>
@@ -92,7 +91,6 @@ export default {
         priority: this.priority,
         tags: this.selected,
       };
-      console.log(payload);
       this.$emit("new-task", payload);
       this.title = "";
       this.body = "";

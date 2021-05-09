@@ -44,28 +44,43 @@
               </div>
             </div>
           </div>
-          <div class="field">
-            <label class="label">Tags</label>
-            <div class="control">
-              <div class="select is-multiple">
-                <select multiple size="4" v-model="selected">
-                  <option v-for="tag in tags" :key="tag.id">
-                    {{ tag.name }}
-                  </option>
-                </select>
-                <span>Выбрано: {{ selected }}</span>
+          <div class="level">
+            <div class="field">
+              <label class="label">Tags</label>
+              <div class="control">
+                <div class="select is-multiple">
+                  <select multiple size="4" v-model="selected">
+                    <option v-for="tag in tags" :key="tag.id">
+                      {{ tag.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="level-left">
+              <div class="container">
+                <div class="mb-1">
+                  <button class="button" @click="onConfirmStatus">
+                    <span class="icon">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span>Complete</span>
+                  </button>
+                </div>
+                <div class="mb-1">
+                  <button class="button" @click="onConfirmDeleteTask">
+                    <span class="icon">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span>Delete</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Save</button>
-          <button class="button is-danger" @click="onConfirmDeleteTask">
-            <i class="fas fa-trash"></i>
-          </button>
-          <button class="button is-success" @click="onConfirmStatus">
-            <i class="fas fa-check"></i>
-          </button>
         </footer>
       </form>
     </div>

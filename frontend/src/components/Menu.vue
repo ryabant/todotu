@@ -33,7 +33,11 @@
           ><i class="fas fa-tags"></i
         ></a>
       </div>
-      <modal-tags ref="modal_tags"></modal-tags>
+      <modal-tags
+        ref="modal_tags"
+        @update-tags="updateTags"
+        v-bind:tags="tags"
+      ></modal-tags>
     </div>
   </div>
 </template>
@@ -61,7 +65,7 @@ export default {
       index: "",
     };
   },
-  props: ["boardId"],
+  props: ["boardId", "tags"],
   mounted() {
     this.getBoards();
   },
@@ -118,8 +122,8 @@ export default {
         method: "delete",
         url: "api/boards/" + boardId + "/",
       }).then(() => {
+        this.$router.push("/boards/");
         this.$refs.modal_del_board.show = false;
-        this.$router.push("/boards/"); // TODO
       });
     },
     confirmDeleteBoard() {
@@ -127,6 +131,9 @@ export default {
     },
     onGetTags() {
       this.$refs.modal_tags.show = true;
+    },
+    updateTags() {
+      this.$emit("update-tags");
     },
   },
 };
