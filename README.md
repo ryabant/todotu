@@ -26,7 +26,7 @@ Installing Python: https://realpython.com/installing-python/
 
 ```sh
 python3 --version
-# Python 3.8.2
+# Python 3.8.5
 ```
 
 ```sh
@@ -56,11 +56,11 @@ python manage.py runserver
 
 ### Frontend
 
-- [Node.js](https://nodejs.org) v12 or greater
+- [Node.js](https://nodejs.org) v14 or greater
 
 ```sh
 node --version
-# v12.16
+# 14.16.1
 ```
 
 ```sh
