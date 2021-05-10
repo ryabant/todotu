@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_DB=todotu
+      - POSTGRES_USER=todotu
+      - POSTGRES_PASSWORD=todotu
+    ports:
+      - "5432:5432"
