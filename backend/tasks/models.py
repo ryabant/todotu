@@ -7,7 +7,8 @@ User = get_user_model()
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name="boards")
+    owner = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="boards")
 
     class Meta:
         ordering = ["id"]
@@ -18,7 +19,14 @@ class Board(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name="tags")
+    owner = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="tags")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "owner"], name="unique_name_owner")
+        ]
 
 
 class Priority(models.TextChoices):
@@ -30,7 +38,8 @@ class Priority(models.TextChoices):
 class Task(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(blank=True)
-    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name="tasks")
+    board = models.ForeignKey(
+        Board, on_delete=models.CASCADE, related_name="tasks")
     priority = models.CharField(
         max_length=10, choices=Priority.choices, default=Priority.MEDIUM
     )
