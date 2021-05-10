@@ -11,10 +11,48 @@
 
 ### Frontend
 
-- Javascript
 - Vue.js
+- Javascript
 - Styling with Bulma
 
-### Infra
-
 ## Development setup
+
+Steps to locally setup development after cloning the project.
+
+### Django
+
+Have Python 3.8 installed and in PATH.
+Installing Python: https://realpython.com/installing-python/
+
+```sh
+python3 --version
+# Python 3.8.2
+```
+
+```sh
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Windows users
+# .venv/scripts/activate
+
+pip install -r requirements.txt
+
+# Windows users, if you encounter pg_config error:
+# 1) Install PostgresSQL and use the solution at https://stackoverflow.com/a/58440598/1262198
+
+# Need to have Docker and Docker Compose installed
+# Start PostgreSQL and other services via Docker Compose
+docker-compose -f services.yml up --d
+
+python manage.py migrate
+python manage.py createsuperuser --username admin --email a@a.com
+python manage.py runserver
+```
+
+- API root available at `http://localhost:8000/api/`
+- Admin available at `http://localhost:8000/backdoor/`
+
+### Vue.js
+
