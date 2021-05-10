@@ -19,7 +19,7 @@
 
 Steps to locally setup development after cloning the project.
 
-### Django
+### Backend
 
 Have Python 3.8 installed and in PATH.
 Installing Python: https://realpython.com/installing-python/
@@ -54,5 +54,19 @@ python manage.py runserver
 - API root available at `http://localhost:8000/api/`
 - Admin available at `http://localhost:8000/backdoor/`
 
-### Vue.js
+### Frontend
 
+- [Node.js](https://nodejs.org) v12 or greater
+
+```sh
+node --version
+# v12.16
+```
+
+```sh
+cd frontend
+npm install
+npm run serve
+```
+
+React app is now accessible at `http://localhost:8080`
