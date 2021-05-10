@@ -69,4 +69,4 @@ npm install
 npm run serve
 ```
 
-React app is now accessible at `http://localhost:8080`
+Vue app is now accessible at `http://localhost:8080`
