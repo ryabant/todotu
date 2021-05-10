@@ -79,7 +79,7 @@ export default {
             this.$store.commit("setToken", token);
             axios.defaults.headers.common["Authorization"] = "Token " + token;
             localStorage.setItem("token", token);
-            this.$router.push("/boards/1");
+            this.$router.push("/boards");
           })
           .catch((error) => {
             if (error.response) {
