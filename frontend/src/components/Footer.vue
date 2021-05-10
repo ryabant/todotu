@@ -2,9 +2,9 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>TODOtu</strong> by <a href="#">Anton Ryabchuk</a>. The source
-        code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+        <a class="icon is-large" href="https://github.com/ryabant/todotu"
+          ><i class="fab fa-2x fa-github"></i
+        ></a>
       </p>
     </div>
   </footer>

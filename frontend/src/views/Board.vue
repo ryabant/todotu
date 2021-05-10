@@ -28,6 +28,8 @@
               @update-board="updateBoard"
             />
           </div>
+          <hr />
+          <Footer />
         </div>
       </div>
     </div>
@@ -40,6 +42,7 @@ import Nav from "../components/Nav.vue";
 import Tasks from "../components/Tasks.vue";
 import Menu from "../components/Menu.vue";
 import NewTask from "../components/NewTask.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Board",
@@ -48,6 +51,7 @@ export default {
     Tasks,
     Menu,
     NewTask,
+    Footer,
   },
   data() {
     return {
