@@ -24,9 +24,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/boards',
-    name: 'AddBoard',
-    component: AddBoard,
+    path: '/boards/:id',
+    name: 'Board',
+    component: Board,
     beforeEnter(to, from, next) {
       if (store.state.isAuthenticated) {
         next()
@@ -36,9 +36,9 @@ const routes = [
     }
   },
   {
-    path: '/boards/:id',
-    name: 'Board',
-    component: Board,
+    path: '/boards',
+    name: 'AddBoard',
+    component: AddBoard,
     beforeEnter(to, from, next) {
       if (store.state.isAuthenticated) {
         next()
