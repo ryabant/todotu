@@ -4,6 +4,7 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Board from '../views/Board.vue'
 import AddBoard from '../views/Board.vue'
+import store from '../store'
 
 
 const routes = [
@@ -25,12 +26,26 @@ const routes = [
   {
     path: '/boards',
     name: 'AddBoard',
-    component: AddBoard
+    component: AddBoard,
+    beforeEnter(to, from, next) {
+      if (store.state.isAuthenticated) {
+        next()
+      } else {
+        next('/');
+      }
+    }
   },
   {
     path: '/boards/:id',
     name: 'Board',
-    component: Board
+    component: Board,
+    beforeEnter(to, from, next) {
+      if (store.state.isAuthenticated) {
+        next()
+      } else {
+        next('/');
+      }
+    }
   },
 ]
 

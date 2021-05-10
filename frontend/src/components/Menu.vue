@@ -26,6 +26,7 @@
         <modal-delete
           ref="modal_del_board"
           @confirm="deleteBoard(boardId)"
+          v-bind:boardName="boardName"
         ></modal-delete>
       </p>
       <div class="navbar-end">
@@ -65,7 +66,7 @@ export default {
       index: "",
     };
   },
-  props: ["boardId", "tags"],
+  props: ["boardId", "boardName", "tags"],
   mounted() {
     this.getBoards();
   },

@@ -57,10 +57,27 @@
                 </div>
               </div>
             </div>
+            <div class="notification is-danger" v-if="errors.length">
+              <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+            </div>
             <div class="level-left">
               <div class="container">
                 <div class="mb-1">
-                  <button class="button" @click="onConfirmStatus">
+                  <button
+                    v-if="!task.completed"
+                    class="button"
+                    @click="onConfirmStatus"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span>Complete</span>
+                  </button>
+                  <button
+                    v-else
+                    class="button is-success"
+                    @click="onConfirmStatus"
+                  >
                     <span class="icon">
                       <i class="fas fa-check"></i>
                     </span>
@@ -99,16 +116,15 @@ export default {
       show: false,
       title: "",
       body: "",
-      priority: "Medium",
+      priority: "",
       selected: [],
+      errors: [],
     };
   },
   mounted() {
     this.title = this.task.title;
     this.body = this.task.body;
-    if (this.task.priority) {
-      this.priority = this.task.priority;
-    }
+    this.priority = this.task.priority;
     this.selected = this.task.tags;
   },
   methods: {

@@ -61,7 +61,6 @@ export default {
         },
       }).then(() => {
         this.$emit("update-board");
-        this.$refs.modal_edit_task.show = false;
       });
     },
     onDeleteTask() {
@@ -100,7 +99,17 @@ export default {
           this.$refs.modal_edit_task.show = false;
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`);
+            }
+            this.$refs.modal_add_task.errors = this.errors;
+            console.log(JSON.stringify(error.response.data));
+          } else if (error.message) {
+            this.errors.push("Something went wrong. Please try again");
+            this.$refs.modal_add_task.errors = this.errors;
+            console.log(JSON.stringify(error));
+          }
         });
     },
     confirmEditTask() {

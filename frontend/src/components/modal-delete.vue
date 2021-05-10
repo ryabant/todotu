@@ -4,7 +4,10 @@
     <div class="modal-content">
       <div class="card">
         <div class="card-content">
-          <p class="title">Are you sure?</p>
+          <p v-if="boardName" class="title">
+            Delete board: {{ this.boardName }}?
+          </p>
+          <p v-else class="title">Delete?</p>
         </div>
         <div class="card-content">
           <button class="button is-danger" @click="onConfirm">Delete</button>
@@ -18,6 +21,7 @@
 <script>
 export default {
   name: "ModalDelete",
+  props: ["boardName"],
   data: function () {
     return {
       show: false,

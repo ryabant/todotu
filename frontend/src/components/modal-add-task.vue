@@ -56,6 +56,9 @@
               </div>
             </div>
           </div>
+          <div class="notification is-danger" v-if="errors.length">
+            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Add Task</button>
@@ -73,8 +76,9 @@ export default {
       show: false,
       title: "",
       body: "",
-      priority: "",
+      priority: "Medium",
       selected: [],
+      errors: [],
     };
   },
   props: { tags: Object },
