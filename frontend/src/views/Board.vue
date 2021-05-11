@@ -6,7 +6,7 @@
           <Nav />
           <Menu
             :boardId="board.id"
-            v-bind:tags="tags"
+            v-bind:tags="filterTags"
             :boardName="board.name"
             @update-tags="getTags"
           />
@@ -17,14 +17,14 @@
           >
             <NewTask
               :boardId="board.id"
-              v-bind:tags="tags"
+              v-bind:tags="filterTags"
               @add-task="onAddTask"
             />
             <Tasks
               v-for="task in board.tasks"
               v-bind:task="task"
               v-bind:key="task.id"
-              v-bind:tags="tags"
+              v-bind:tags="filterTags"
               @update-board="updateBoard"
             />
           </div>
@@ -55,10 +55,8 @@ export default {
   },
   data() {
     return {
-      board: {
-        tasks: [],
-      },
-      tags: {},
+      board: {},
+      tags: [],
     };
   },
   mounted() {
@@ -70,6 +68,9 @@ export default {
       return this.board.tasks.filter((task) => {
         return !task.completed;
       });
+    },
+    filterTags() {
+      return this.tags.filter((tag) => tag.board === this.board.id);
     },
   },
   watch: {
@@ -104,7 +105,7 @@ export default {
         url: "api/boards/" + board_id + "/",
       }).then(() => {
         this.$refs.modal.show = false;
-        this.$router.push("/boards/"); // TODO
+        this.$router.push("/boards/");
       });
     },
     confirmDeleteBoard() {

@@ -33,11 +33,3 @@ class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [
         IsAuthenticated,
     ]
-
-    def get_queryset(self):
-        user = self.request.user
-        qs = super().get_queryset().filter(owner=user)
-        return qs
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)

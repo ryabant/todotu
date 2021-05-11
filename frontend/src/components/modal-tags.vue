@@ -41,7 +41,7 @@ import axios from "axios";
 
 export default {
   name: "ModalTags",
-  props: { tags: Object },
+  props: { tags: Object, boardId: Number },
   data() {
     return {
       show: false,
@@ -59,6 +59,7 @@ export default {
           url: "api/tags/",
           data: {
             name: this.name,
+            board: this.boardId,
           },
         })
           .then(() => {

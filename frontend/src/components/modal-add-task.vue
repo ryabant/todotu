@@ -87,6 +87,7 @@ export default {
       this.show = false;
       this.title = "";
       this.body = "";
+      this.selected = [];
     },
     onConfirm() {
       const payload = {
@@ -98,6 +99,7 @@ export default {
       this.$emit("new-task", payload);
       this.title = "";
       this.body = "";
+      this.selected = [];
     },
   },
 };
