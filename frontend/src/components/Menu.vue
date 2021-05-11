@@ -38,6 +38,7 @@
         ref="modal_tags"
         @update-tags="updateTags"
         v-bind:tags="tags"
+        v-bind:boardId="boardId"
       ></modal-tags>
     </div>
   </div>

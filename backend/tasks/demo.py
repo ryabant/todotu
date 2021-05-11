@@ -8,8 +8,8 @@ User = get_user_model()
 
 @transaction.atomic
 def create_demo_board(user):
-    tag1 = Tag.objects.create(name="welcome", owner=user)
     board = Board.objects.create(name="Welcome!", owner=user)
+    tag1 = Tag.objects.create(name="welcome", board=board)
 
     task = Task.objects.create(
         title="Add new tags by clicking the small yellow button", body="Click on small yellow button!", board=board)

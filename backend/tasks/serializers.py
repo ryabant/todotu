@@ -5,7 +5,7 @@ from .models import Board, Task, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
-    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
 
     def update(self, instance, validated_data):
         try:
@@ -15,7 +15,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ["id", "name", "owner"]
+        fields = ["id", "name", "board"]
 
 
 class TaskSerializer(serializers.ModelSerializer):
