@@ -1,6 +1,12 @@
 <template>
   <div class="box">
     <div class="field is-grouped is-grouped-multiline">
+      <div class="control">
+        <a class="button"><i class="fas fa-star"></i></a>
+      </div>
+      <div class="control">
+        <a class="button"><i class="fas fa-inbox"></i></a>
+      </div>
       <div class="control" v-for="board in boards" v-bind:key="board.id">
         <div class="tags are-large">
           <router-link class="navbar-item tag" :to="'/boards/' + board.id">

@@ -1,30 +1,47 @@
 <template>
   <div>
-    <a class="box" @click="confirmEditTask">
-      <span v-if="task.completed === true" class="icon has-text-success"
-        ><i class="far fa-check-circle"></i
-      ></span>
-      <span v-else-if="task.priority === 'High'" class="icon has-text-danger"
-        ><i class="fas fa-exclamation-circle"></i
-      ></span>
-      <span v-else-if="task.priority === 'Medium'" class="icon has-text-warning"
-        ><i class="fas fa-exclamation-circle"></i
-      ></span>
-      <div class="card-content">
-        <p class="title">
-          {{ task.title }}
-        </p>
-        <div class="field is-grouped is-grouped-multiline">
-          <div class="tags are-medium">
-            <div class="control">
-              <span class="tag" v-for="tag in task.tags" :key="tag.id">{{
-                tag
-              }}</span>
+    <div @mouseover="mouseOver" class="box">
+      <div class="tile">
+        <div>
+          <span v-if="task.completed === true" class="icon has-text-success"
+            ><i class="far fa-check-circle"></i
+          ></span>
+          <span
+            v-else-if="task.priority === 'High'"
+            class="icon has-text-danger"
+            ><i class="fas fa-exclamation-circle"></i
+          ></span>
+          <span
+            v-else-if="task.priority === 'Medium'"
+            class="icon has-text-warning"
+            ><i class="fas fa-exclamation-circle"></i
+          ></span>
+        </div>
+        <a class="card-content" @click="confirmEditTask">
+          <p class="title">
+            {{ task.title }}
+          </p>
+          <div class="field is-grouped is-grouped-multiline">
+            <div class="tags are-medium">
+              <div class="control">
+                <span class="tag" v-for="tag in task.tags" :key="tag.id">{{
+                  tag
+                }}</span>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
+        <a class="icon">
+          <i
+            v-if="task.important === true"
+            class="fas fa-star"
+            @click="setImportant"
+          ></i>
+          <i v-else class="far fa-star" @click="setImportant"></i>
+        </a>
       </div>
-    </a>
+    </div>
+
     <modal-edit-task
       ref="modal_edit_task"
       :task="task"
@@ -114,6 +131,17 @@ export default {
     },
     confirmEditTask() {
       this.$refs.modal_edit_task.show = true;
+    },
+    setImportant() {
+      axios({
+        method: "patch",
+        url: `api/tasks/${this.task.id}/`,
+        data: {
+          important: !this.task.important,
+        },
+      }).then(() => {
+        this.$emit("update-board");
+      });
     },
   },
 };

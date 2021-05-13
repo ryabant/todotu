@@ -117,6 +117,8 @@ export default {
       title: "",
       body: "",
       priority: "",
+      important: "",
+      myday: "",
       selected: [],
       errors: [],
     };
@@ -137,6 +139,7 @@ export default {
         body: this.body,
         priority: this.priority,
         tags: this.selected,
+        important: this.important,
       };
       this.$emit("edit-task", payload);
     },

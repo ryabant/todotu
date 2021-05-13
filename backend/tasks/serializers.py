@@ -23,6 +23,7 @@ class TaskSerializer(serializers.ModelSerializer):
     tags = serializers.SlugRelatedField(
         queryset=Tag.objects.all(), slug_field="name", many=True, required=False
     )
+    owner = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Task
@@ -34,7 +35,10 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority",
             "tags",
             "created",
+            "important",
+            "inbox",
             "completed",
+            "owner"
         ]
 
     def create(self, validated_data):

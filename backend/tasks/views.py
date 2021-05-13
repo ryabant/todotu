@@ -22,9 +22,10 @@ class BoardViewSet(viewsets.ModelViewSet):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [
-        IsAuthenticated,
-    ]
+    permission_classes = [IsAuthenticated, IsOwner]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class TagViewSet(viewsets.ModelViewSet):
