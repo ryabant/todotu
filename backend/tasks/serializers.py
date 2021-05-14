@@ -19,7 +19,8 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
+    board = serializers.PrimaryKeyRelatedField(
+        queryset=Board.objects.all(), required=False)
     tags = serializers.SlugRelatedField(
         queryset=Tag.objects.all(), slug_field="name", many=True, required=False
     )
@@ -42,7 +43,7 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        tags = validated_data["tags"]
+        # tags = validated_data["tags"]
         return super().create(validated_data)
 
 
