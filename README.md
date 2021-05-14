@@ -1,6 +1,6 @@
-<h1 align="center">Todo app</h1>
+<h1 align="center">To do app</h1>
 
-![image](https://github.com/ryabant/todotu/blob/main/Screenshot_2021-05-10%20Todotu.png)
+![image](https://github.com/ryabant/todotu/blob/main/Screenshot_Todotu.png)
 
 ## Using stack
 ### Backend
