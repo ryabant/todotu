@@ -1,6 +1,16 @@
 <template>
   <div class="box">
     <div class="field is-grouped is-grouped-multiline">
+      <div class="control">
+        <router-link :to="'/tasks/inbox'" class="button"
+          ><i class="fas fa-inbox"></i
+        ></router-link>
+      </div>
+      <div class="control">
+        <router-link :to="'/tasks/important'" class="button"
+          ><i class="fas fa-star"></i
+        ></router-link>
+      </div>
       <div class="control" v-for="board in boards" v-bind:key="board.id">
         <div class="tags are-large">
           <router-link class="navbar-item tag" :to="'/boards/' + board.id">
@@ -12,13 +22,15 @@
         <a class="button is-link" @click="confirmAddBoard"
           ><i class="fas fa-plus"></i
         ></a>
-
         <modal-add-board
           ref="modal_add_board"
           @add-board="addBoard"
         ></modal-add-board>
       </p>
-      <p class="control">
+      <p
+        v-if="$route.name !== 'Inbox' && $route.name !== 'Important'"
+        class="control"
+      >
         <a class="button is-danger" @click="confirmDeleteBoard"
           ><i class="fas fa-trash"></i
         ></a>
@@ -29,7 +41,10 @@
           v-bind:boardName="boardName"
         ></modal-delete>
       </p>
-      <div class="navbar-end">
+      <div
+        v-if="$route.name !== 'Inbox' && $route.name !== 'Important'"
+        class="navbar-end"
+      >
         <a class="button is-warning" @click="onGetTags"
           ><i class="fas fa-tags"></i
         ></a>
@@ -124,7 +139,7 @@ export default {
         method: "delete",
         url: "api/boards/" + boardId + "/",
       }).then(() => {
-        this.$router.push("/boards/");
+        this.$router.push("/tasks/inbox");
         this.$refs.modal_del_board.show = false;
       });
     },

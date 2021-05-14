@@ -12,21 +12,21 @@ def create_demo_board(user):
     tag1 = Tag.objects.create(name="welcome", board=board)
 
     task = Task.objects.create(
-        title="Add new tags by clicking the small yellow button", body="Click on small yellow button!", board=board)
+        title="Add new tags by clicking the small yellow button", body="Click on small yellow button!", board=board, owner=user)
     task.tags.set([tag1, ])
 
     task = Task.objects.create(
-        title="Delete board by clicking the small red button", body="Click on small red button!", board=board)
+        title="Delete board by clicking the small red button", body="Click on small red button!", board=board, owner=user)
     task.tags.set([tag1, ])
 
     task = Task.objects.create(
-        title="Add a new board by clicking the small blue button", body="Click on small blue button!", board=board)
+        title="Add a new board by clicking the small blue button", body="Click on small blue button!", board=board, owner=user)
     task.tags.set([tag1, ])
 
     task = Task.objects.create(
-        title="Click on me!", body="Change task and press save!", board=board)
+        title="Click on me!", body="Change task and press save!", board=board, owner=user)
     task.tags.set([tag1, ])
 
     task = Task.objects.create(
-        title="Add a new task by clicking the big blue button", body="Click on big blue button!", board=board)
+        title="Add a new task by clicking the big blue button", body="Click on big blue button!", board=board, owner=user)
     task.tags.set([tag1, ])

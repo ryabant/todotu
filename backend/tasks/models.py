@@ -42,13 +42,17 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(blank=True)
     board = models.ForeignKey(
-        Board, on_delete=models.CASCADE, related_name="tasks")
+        Board, on_delete=models.CASCADE, related_name="tasks", blank=True, null=True)
     priority = models.CharField(
         max_length=10, choices=Priority.choices, default=Priority.MEDIUM
     )
     tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
     created = models.DateTimeField(default=timezone.now)
     completed = models.BooleanField(default=False)
+    important = models.BooleanField(default=False)
+    inbox = models.BooleanField(default=False)
+    owner = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="tasks")
 
     class Meta:
         ordering = ["-created"]

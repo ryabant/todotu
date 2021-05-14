@@ -33,45 +33,127 @@ export default {
   },
   methods: {
     addTask(item) {
-      if (item.title) {
-        axios({
-          method: "post",
-          url: "api/tasks/",
-          data: {
-            title: item.title,
-            body: item.body,
-            priority: item.priority,
-            tags: item.tags,
-            board: this.boardId,
-          },
-        })
-          .then((response) => {
-            let newTask = {
-              id: response.data.id,
+      if (this.$route.name === "Inbox") {
+        if (item.title) {
+          axios({
+            method: "post",
+            url: "api/tasks/",
+            data: {
+              title: item.title,
+              body: item.body,
+              priority: item.priority,
+              inbox: true,
+            },
+          })
+            .then((response) => {
+              let newTask = {
+                id: response.data.id,
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                inbox: true,
+              };
+              this.$emit("add-task", newTask);
+              this.$refs.modal_add_task.show = false;
+            })
+            .catch((error) => {
+              if (error.response) {
+                for (const property in error.response.data) {
+                  this.errors.push(
+                    `${property}: ${error.response.data[property]}`
+                  );
+                }
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error.response.data));
+              } else if (error.message) {
+                this.errors.push("Something went wrong. Please try again");
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error));
+              }
+            });
+        }
+      } else if (this.$route.name === "Important") {
+        if (item.title) {
+          axios({
+            method: "post",
+            url: "api/tasks/",
+            data: {
+              title: item.title,
+              body: item.body,
+              priority: item.priority,
+              important: true,
+              inbox: true,
+            },
+          })
+            .then((response) => {
+              let newTask = {
+                id: response.data.id,
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                important: true,
+                inbox: true,
+              };
+              this.$emit("add-task", newTask);
+              this.$refs.modal_add_task.show = false;
+            })
+            .catch((error) => {
+              if (error.response) {
+                for (const property in error.response.data) {
+                  this.errors.push(
+                    `${property}: ${error.response.data[property]}`
+                  );
+                }
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error.response.data));
+              } else if (error.message) {
+                this.errors.push("Something went wrong. Please try again");
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error));
+              }
+            });
+        }
+      } else {
+        if (item.title) {
+          axios({
+            method: "post",
+            url: "api/tasks/",
+            data: {
               title: item.title,
               body: item.body,
               priority: item.priority,
               tags: item.tags,
               board: this.boardId,
-            };
-            this.$emit("add-task", newTask);
-            this.$refs.modal_add_task.show = false;
+            },
           })
-          .catch((error) => {
-            if (error.response) {
-              for (const property in error.response.data) {
-                this.errors.push(
-                  `${property}: ${error.response.data[property]}`
-                );
+            .then((response) => {
+              let newTask = {
+                id: response.data.id,
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                tags: item.tags,
+                board: this.boardId,
+              };
+              this.$emit("add-task", newTask);
+              this.$refs.modal_add_task.show = false;
+            })
+            .catch((error) => {
+              if (error.response) {
+                for (const property in error.response.data) {
+                  this.errors.push(
+                    `${property}: ${error.response.data[property]}`
+                  );
+                }
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error.response.data));
+              } else if (error.message) {
+                this.errors.push("Something went wrong. Please try again");
+                this.$refs.modal_add_task.errors = this.errors;
+                console.log(JSON.stringify(error));
               }
-              this.$refs.modal_add_task.errors = this.errors;
-              console.log(JSON.stringify(error.response.data));
-            } else if (error.message) {
-              this.errors.push("Something went wrong. Please try again");
-              this.$refs.modal_add_task.errors = this.errors;
-              console.log(JSON.stringify(error));
-            }
-          });
+            });
+        }
       }
     },
     confirmAddTask() {

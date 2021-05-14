@@ -31,34 +31,18 @@
               />
             </div>
           </div>
-
-          <div class="field">
-            <label class="label">Priority</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="priority">
-                  <option>High</option>
-                  <option>Medium</option>
-                  <option>Low</option>
-                </select>
-              </div>
-            </div>
-          </div>
           <div class="level">
             <div class="field">
-              <label class="label">Tags</label>
+              <label class="label">Priority</label>
               <div class="control">
-                <div class="select is-multiple">
-                  <select multiple size="4" v-model="selected">
-                    <option v-for="tag in tags" :key="tag.id">
-                      {{ tag.name }}
-                    </option>
+                <div class="select">
+                  <select v-model="priority">
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
                   </select>
                 </div>
               </div>
-            </div>
-            <div class="notification is-danger" v-if="errors.length">
-              <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
             </div>
             <div class="level-left">
               <div class="container">
@@ -95,6 +79,22 @@
               </div>
             </div>
           </div>
+
+          <div v-if="$route.name !== 'Inbox' && tags.length > 0" class="field">
+            <label class="label">Tags</label>
+            <div class="control">
+              <div class="select is-multiple">
+                <select multiple size="4" v-model="selected">
+                  <option v-for="tag in filterTags" :key="tag.id">
+                    {{ tag.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="notification is-danger" v-if="errors.length">
+            <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-link" @click="onConfirm">Save</button>
@@ -117,9 +117,16 @@ export default {
       title: "",
       body: "",
       priority: "",
+      important: "",
+      myday: "",
       selected: [],
       errors: [],
     };
+  },
+  computed: {
+    filterTags() {
+      return this.tags.filter((tag) => tag.board === this.task.board);
+    },
   },
   mounted() {
     this.title = this.task.title;
@@ -137,6 +144,7 @@ export default {
         body: this.body,
         priority: this.priority,
         tags: this.selected,
+        important: this.important,
       };
       this.$emit("edit-task", payload);
     },

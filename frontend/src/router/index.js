@@ -3,7 +3,8 @@ import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Board from '../views/Board.vue'
-import AddBoard from '../views/Board.vue'
+import Inbox from '../views/Inbox.vue'
+import Important from '../views/Important.vue'
 import store from '../store'
 
 
@@ -24,9 +25,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/boards/:id',
-    name: 'Board',
-    component: Board,
+    path: '/tasks/inbox',
+    name: 'Inbox',
+    component: Inbox,
     beforeEnter(to, from, next) {
       if (store.state.isAuthenticated) {
         next()
@@ -36,9 +37,21 @@ const routes = [
     }
   },
   {
-    path: '/boards',
-    name: 'AddBoard',
-    component: AddBoard,
+    path: '/tasks/important',
+    name: 'Important',
+    component: Important,
+    beforeEnter(to, from, next) {
+      if (store.state.isAuthenticated) {
+        next()
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/boards/:id',
+    name: 'Board',
+    component: Board,
     beforeEnter(to, from, next) {
       if (store.state.isAuthenticated) {
         next()

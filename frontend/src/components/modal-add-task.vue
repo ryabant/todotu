@@ -44,7 +44,14 @@
               </div>
             </div>
           </div>
-          <div class="field">
+          <div
+            v-if="
+              $route.name !== 'Inbox' &&
+              $route.name !== 'Important' &&
+              tags.length > 0
+            "
+            class="field"
+          >
             <label class="label">Tags</label>
             <div class="control">
               <div class="select is-multiple">
