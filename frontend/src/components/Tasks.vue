@@ -24,9 +24,9 @@
           <div class="field is-grouped is-grouped-multiline">
             <div class="tags are-medium">
               <div class="control">
-                <span class="tag" v-for="tag in task.tags" :key="tag.id">{{
-                  tag
-                }}</span>
+                <span class="tag" v-for="tag in tasktags" :key="tag.id">
+                  {{ tag }}</span
+                >
               </div>
             </div>
           </div>
@@ -67,7 +67,13 @@ export default {
     task: Object,
     tags: Object,
   },
+  data() {
+    return { tasktags: [] };
+  },
   components: { ModalEditTask, ModalDelete },
+  mounted() {
+    this.filterTags();
+  },
   methods: {
     onSetStatus() {
       axios({
@@ -142,6 +148,15 @@ export default {
       }).then(() => {
         this.$emit("update-board");
       });
+    },
+    filterTags() {
+      if (this.tags) {
+        this.tags.map((tag) => {
+          if (this.task.tags.includes(tag.id)) {
+            this.tasktags.push(tag.name);
+          }
+        });
+      }
     },
   },
 };

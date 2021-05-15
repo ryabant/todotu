@@ -86,7 +86,7 @@
               <div class="select is-multiple">
                 <select multiple size="4" v-model="selected">
                   <option v-for="tag in filterTags" :key="tag.id">
-                    {{ tag.name }}
+                    {{ tag.id }}
                   </option>
                 </select>
               </div>

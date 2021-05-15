@@ -7,6 +7,16 @@ from .models import Board, Task, Tag
 class TagSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
 
+    def extra_validation(self, board=None, user=None, tags=None):
+        if user != board.owner:
+            raise serializers.ValidationError("Must be a owner of the board!")
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        board = validated_data.get("board")
+        self.extra_validation(board=board, user=user)
+        return super().create(validated_data)
+
     def update(self, instance, validated_data):
         try:
             return super().update(instance, validated_data)
@@ -20,10 +30,9 @@ class TagSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(
-        queryset=Board.objects.all(), required=False)
-    tags = serializers.SlugRelatedField(
-        queryset=Tag.objects.all(), slug_field="name", many=True, required=False
-    )
+        queryset=Board.objects.all(), required=False, default=None)
+    tags = serializers.PrimaryKeyRelatedField(
+        queryset=Tag.objects.all(), many=True, required=False, default=[])
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
@@ -42,14 +51,28 @@ class TaskSerializer(serializers.ModelSerializer):
             "owner"
         ]
 
-    def extra_validation(self, board=None, user=None):
-        if user != board.owner:
-            raise serializers.ValidationError("Must be a owner of the board!")
+    def extra_validation(self, board=None, user=None, tags=None):
+        if tags and board:
+            for tag in tags:
+                if tag.board != board:
+                    raise serializers.ValidationError(
+                        "Can't set a tag that doesn't belong to the board!")
+        if board and user != board.owner:
+            raise serializers.ValidationError(
+                "Must be a owner of the board!")
+
+    def update(self, instance, validated_data):
+        user = self.context["request"].user
+        tags = validated_data.get("tags")
+        board = instance.board
+        self.extra_validation(board=board, user=user, tags=tags)
+        return super().update(instance, validated_data)
 
     def create(self, validated_data):
         user = self.context["request"].user
-        board = validated_data.get("board")
-        self.extra_validation(board=board, user=user)
+        board = validated_data["board"]
+        tags = validated_data["tags"]
+        self.extra_validation(board=board, user=user, tags=tags)
         return super().create(validated_data)
 
 

@@ -48,3 +48,7 @@ class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [
         IsAuthenticated,
     ]
+
+    def get_queryset(self):
+        user = self.request.user
+        return super().get_queryset().filter(board__owner=user)
