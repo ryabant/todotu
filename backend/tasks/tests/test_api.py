@@ -137,14 +137,14 @@ def test_add_tags_to_task(api_client, create_user):
     # Can't add a tag when not a owner
     user2 = create_user()
     api_client.force_authenticate(user=user2)
-    response = add_tags([tag1])
+    response = add_tags([tag1.id])
     task.refresh_from_db()
     assert response.status_code == 403
     assert len(task.tags.all()) == 0
 
     # Can't add a tag from a different board
     api_client.force_authenticate(user=user1)
-    response = add_tags([tag1, tag2])
+    response = add_tags([tag1.id, tag2.id])
     task.refresh_from_db()
     assert response.status_code == 400
     assert response.data[0] == "Can't set a tag that doesn't belong to the board!"
@@ -152,7 +152,7 @@ def test_add_tags_to_task(api_client, create_user):
 
     # Can add a tag of this board as owner
     api_client.force_authenticate(user=user1)
-    response = add_tags([tag2])
+    response = add_tags([tag2.id])
     task.refresh_from_db()
     assert response.status_code == 200
     assert [tag.id for tag in task.tags.all()] == [tag2.id]

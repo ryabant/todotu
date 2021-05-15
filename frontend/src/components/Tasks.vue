@@ -24,9 +24,9 @@
           <div class="field is-grouped is-grouped-multiline">
             <div class="tags are-medium">
               <div class="control">
-                <span class="tag" v-for="tag in task.tags" :key="tag.id">{{
-                  tag
-                }}</span>
+                <span class="tag" v-for="tag in tags" :key="tag.id">
+                  {{ tag.name }}</span
+                >
               </div>
             </div>
           </div>

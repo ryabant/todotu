@@ -51,7 +51,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "owner"
         ]
 
-    def extra_validation(self, board=None, user=None):
+    def extra_validation(self, board=None, user=None, tags=None):
         if tags and board:
             for tag in tags:
                 if tag not in board:
@@ -61,19 +61,19 @@ class TaskSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Must be a owner of the board!")
 
-    # def update(self, instance, validated_data):
-    #     user = self.context["request"].user
-    #     tags = validated_data.get("tags")
-    #     board = instance.board
-    #     self.extra_validation(board=board, user=user)
-    #     return super().update(instance, validated_data)
+    def update(self, instance, validated_data):
+        user = self.context["request"].user
+        tags = validated_data.get("tags")
+        board = instance.board
+        self.extra_validation(board=board, user=user, tags=tags)
+        return super().update(instance, validated_data)
 
-    # def create(self, validated_data):
-    #     user = self.context["request"].user
-    #     board = validated_data["board"]
-    #     tags = validated_data["tags"]
-    #     self.extra_validation(board=board, user=user)
-    #     return super().create(validated_data)
+    def create(self, validated_data):
+        user = self.context["request"].user
+        board = validated_data["board"]
+        tags = validated_data["tags"]
+        self.extra_validation(board=board, user=user, tags=tags)
+        return super().create(validated_data)
 
 
 class BoardSerializer(serializers.ModelSerializer):
