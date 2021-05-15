@@ -53,6 +53,7 @@ python manage.py runserver
 
 - API root available at `http://localhost:8000/api/`
 - Admin available at `http://localhost:8000/backdoor/`
+- Docs available at `http://localhost:8000/docs/`
 
 ### Frontend
 
