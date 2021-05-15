@@ -99,3 +99,60 @@ def test_task_in_board_create(api_client, create_user):
     response = create_task(task_data)
     assert response.status_code == 400
     assert response.data[0] == "Must be a owner of the board!"
+
+
+def test_only_board_owner_see_tags(api_client, create_user):
+    user1 = create_user()
+    board = Board.objects.create(name="Movies", owner=user1)
+
+    tag = Tag.objects.create(name="comedy", board=board)
+
+    def get_label():
+        return api_client.get(reverse("tag-detail", kwargs={"pk": tag.id}))
+
+    # user1 is a board owner, can get tag
+    api_client.force_authenticate(user=user1)
+    response = get_label()
+    assert response.status_code == 200
+
+    # user2 is a not a board owner, can't get tag
+    user2 = create_user()
+    api_client.force_authenticate(user=user2)
+    response = get_label()
+    assert response.status_code == 404
+
+
+def test_add_tags_to_task(api_client, create_user):
+    user1 = create_user()
+    board1 = Board.objects.create(name="Movies", owner=user1)
+    board2 = Board.objects.create(name="Sport", owner=user1)
+    tag1 = Tag.objects.create(name="comedy", board=board1)
+    tag2 = Tag.objects.create(name="running", board=board2)
+    task = Task.objects.create(
+        title="run 10 kilometers", board=board2, owner=user1)
+
+    def add_tags(tags):
+        return api_client.patch(reverse("task-detail", kwargs={"pk": task.id}), {"tags": tags})
+
+    # Can't add a tag when not a owner
+    user2 = create_user()
+    api_client.force_authenticate(user=user2)
+    response = add_tags([tag1])
+    task.refresh_from_db()
+    assert response.status_code == 403
+    assert len(task.tags.all()) == 0
+
+    # Can't add a tag from a different board
+    api_client.force_authenticate(user=user1)
+    response = add_tags([tag1, tag2])
+    task.refresh_from_db()
+    assert response.status_code == 400
+    assert response.data[0] == "Can't set a tag that doesn't belong to the board!"
+    assert len(task.tags.all()) == 0
+
+    # Can add a tag of this board as owner
+    api_client.force_authenticate(user=user1)
+    response = add_tags([tag2])
+    task.refresh_from_db()
+    assert response.status_code == 200
+    assert [tag.id for tag in task.tags.all()] == [tag2.id]
