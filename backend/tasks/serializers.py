@@ -42,8 +42,14 @@ class TaskSerializer(serializers.ModelSerializer):
             "owner"
         ]
 
+    def extra_validation(self, board=None, user=None):
+        if user != board.owner:
+            raise serializers.ValidationError("Must be a owner of the board!")
+
     def create(self, validated_data):
-        # tags = validated_data["tags"]
+        user = self.context["request"].user
+        board = validated_data.get("board")
+        self.extra_validation(board=board, user=user)
         return super().create(validated_data)
 
 

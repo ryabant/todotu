@@ -7,10 +7,10 @@ from tasks.models import Board, Task, Tag
 User = get_user_model()
 
 
-# @pytest.fixture
-def test_board(create_user):
+@pytest.fixture
+def board(create_user):
     user = create_user()
-    uni_board = Board.objects.create(name="University", owner=user)
+    uni_board = Board.objects.create(name="Sport", owner=user)
     return uni_board
 
 
@@ -66,3 +66,36 @@ def test_board_delete(api_client, create_user):
     response = delete_uni_board()
     assert response.status_code == 204
     assert not Board.objects.filter(id=uni_board.id).exists()
+
+
+def test_task_in_board_create(api_client, create_user):
+    user1 = create_user()
+    board = Board.objects.create(name="Music", owner=user1)
+
+    task_data = {
+        "title": "Test title",
+        "body": "Test body",
+        "tags": [],
+        "board": board.id,
+        "priority": "Low",
+    }
+
+    def create_task(post_data):
+        return api_client.post(reverse("task-list"), post_data)
+
+    # Not authenticated
+    response = create_task(task_data)
+    assert response.status_code == 401
+
+    # user1 is a board member, can create
+    api_client.force_authenticate(user=user1)
+    response = create_task(task_data)
+    assert response.status_code == 201
+    assert Task.objects.filter(title=task_data["title"]).exists()
+
+    # user2 is not a board member, can't create
+    user2 = create_user()
+    api_client.force_authenticate(user=user2)
+    response = create_task(task_data)
+    assert response.status_code == 400
+    assert response.data[0] == "Must be a owner of the board!"
