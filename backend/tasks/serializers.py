@@ -54,7 +54,7 @@ class TaskSerializer(serializers.ModelSerializer):
     def extra_validation(self, board=None, user=None, tags=None):
         if tags and board:
             for tag in tags:
-                if tag not in board:
+                if tag.board != board:
                     raise serializers.ValidationError(
                         "Can't set a tag that doesn't belong to the board!")
         if board and user != board.owner:
