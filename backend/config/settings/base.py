@@ -129,12 +129,14 @@ FIXTURE_DIRS = ["fixtures"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+# Configure django-rest-framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
+
 
 # For django.contrib.sites
 SITE_ID = 1
