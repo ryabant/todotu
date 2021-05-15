@@ -32,7 +32,7 @@ class TaskSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(
         queryset=Board.objects.all(), required=False, default=None)
     tags = serializers.PrimaryKeyRelatedField(
-        queryset=Tag.objects.all(), many=True, required=False)
+        queryset=Tag.objects.all(), many=True, required=False, default=[])
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
