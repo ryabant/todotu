@@ -5,7 +5,9 @@
         <div class="column is-half is-offset-one-quarter">
           <div class="box">
             <div>
-              <a href="/"><img alt="logo" src="../assets/logo.png" /></a>
+              <a href="/tasks/inbox"
+                ><img alt="logo" src="../assets/logo.png"
+              /></a>
             </div>
             <hr />
             <h1 class="title">Log in</h1>
@@ -79,7 +81,7 @@ export default {
             this.$store.commit("setToken", token);
             axios.defaults.headers.common["Authorization"] = "Token " + token;
             localStorage.setItem("token", token);
-            this.$router.push("/boards");
+            this.$router.push("/tasks/inbox");
           })
           .catch((error) => {
             if (error.response) {

@@ -57,7 +57,7 @@
               <div class="select is-multiple">
                 <select multiple size="4" v-model="selected">
                   <option v-for="tag in tags" :key="tag.id">
-                    {{ tag.id }}
+                    {{ tag.name }}
                   </option>
                 </select>
               </div>
@@ -86,6 +86,7 @@ export default {
       priority: "Medium",
       selected: [],
       errors: [],
+      tasktags: [],
     };
   },
   props: { tags: Object },
@@ -95,18 +96,30 @@ export default {
       this.title = "";
       this.body = "";
       this.selected = [];
+      this.errors = [];
     },
     onConfirm() {
+      this.filterTags();
       const payload = {
         title: this.title,
         body: this.body,
         priority: this.priority,
-        tags: this.selected,
+        tags: this.tasktags,
       };
       this.$emit("new-task", payload);
       this.title = "";
       this.body = "";
+      this.tasktags = [];
       this.selected = [];
+    },
+    filterTags() {
+      if (this.selected.length > 0) {
+        this.tags.map((tag) => {
+          if (this.selected.includes(tag.name)) {
+            this.tasktags.push(tag.id);
+          }
+        });
+      }
     },
   },
 };

@@ -23,9 +23,9 @@
           </p>
           <div class="field is-grouped is-grouped-multiline">
             <div class="tags are-medium">
-              <div class="control">
-                <span class="tag" v-for="tag in tasktags" :key="tag.id">
-                  {{ tag }}</span
+              <div v-if="tags" class="control">
+                <span class="tag" v-for="tag in filterTags" :key="tag.id">
+                  {{ tag.name }}</span
                 >
               </div>
             </div>
@@ -67,13 +67,15 @@ export default {
     task: Object,
     tags: Object,
   },
+  computed: {
+    filterTags() {
+      return this.tags.filter((tag) => this.task.tags.includes(tag.id));
+    },
+  },
   data() {
     return { tasktags: [] };
   },
   components: { ModalEditTask, ModalDelete },
-  mounted() {
-    this.filterTags();
-  },
   methods: {
     onSetStatus() {
       axios({
@@ -109,7 +111,7 @@ export default {
         },
       })
         .then((response) => {
-          let newTask = {
+          const newTask = {
             id: response.data.id,
             title: item.title,
             body: item.body,
@@ -118,6 +120,8 @@ export default {
             board: this.boardId,
           };
           this.$emit("edit-task", newTask);
+        })
+        .then(() => {
           this.$emit("update-board");
           this.$refs.modal_edit_task.show = false;
         })
@@ -148,15 +152,6 @@ export default {
       }).then(() => {
         this.$emit("update-board");
       });
-    },
-    filterTags() {
-      if (this.tags) {
-        this.tags.map((tag) => {
-          if (this.task.tags.includes(tag.id)) {
-            this.tasktags.push(tag.name);
-          }
-        });
-      }
     },
   },
 };
