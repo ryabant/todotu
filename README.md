@@ -8,6 +8,7 @@
 - Django REST framework
 - Django ORM
 - PostgreSQL
+- Unit tests with Pytest
 
 ### Frontend
 
